@@ -1,3 +1,5 @@
+import vue.InterfaceGraphique;
+import vue.VueActionsNonConnecte;
 
 public class Controleur {
 
@@ -11,6 +13,6 @@ public class Controleur {
     }
 
     private Controleur() {
-
+        InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
     }
 }

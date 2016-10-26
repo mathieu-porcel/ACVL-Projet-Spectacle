@@ -17,6 +17,7 @@ public class InterfaceGraphique extends JFrame {
     }
 
     private InterfaceGraphique() {
+        setLayout(new BorderLayout());
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

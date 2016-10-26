@@ -2,6 +2,7 @@ package vue;
 
 import javax.swing.JPanel;
 
-public class VuePrincipale extends JPanel {
+@SuppressWarnings("serial")
+public abstract class VuePrincipale extends JPanel {
 
 }
