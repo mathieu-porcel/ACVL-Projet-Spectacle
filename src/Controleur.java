@@ -5,6 +5,9 @@ public class Controleur {
 
     private static Controleur instance;
 
+    /**
+     * Singleton
+     */
     public static Controleur getInstance() {
         if (instance == null) {
             instance = new Controleur();

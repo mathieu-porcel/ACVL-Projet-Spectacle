@@ -9,6 +9,9 @@ public class InterfaceGraphique extends JFrame {
 
     private static InterfaceGraphique instance;
 
+    /**
+     * Singleton
+     */
     public static InterfaceGraphique getInstance() {
         if (instance == null) {
             instance = new InterfaceGraphique();
@@ -16,6 +19,9 @@ public class InterfaceGraphique extends JFrame {
         return instance;
     }
 
+    /**
+     * Initialisation de l'interface graphique
+     */
     private InterfaceGraphique() {
         setLayout(new BorderLayout());
         setSize(800, 600);
@@ -25,10 +31,12 @@ public class InterfaceGraphique extends JFrame {
     }
 
     public void setVueActions(VueActions vue) {
-        add(vue, BorderLayout.WEST);
+        add(vue, BorderLayout.NORTH);
+        vue.updateUI();
     }
 
     public void setVuePrincipale(VuePrincipale vue) {
         add(vue, BorderLayout.CENTER);
+        vue.updateUI();
     }
 }
