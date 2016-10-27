@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -65,6 +66,12 @@ public abstract class VuePrincipale extends JPanel {
 
     protected void addTexte(String texte) {
         addComposantGraphique(new JLabel(texte));
+    }
+
+    protected void addTitre(String texte) {
+        JLabel label = new JLabel(texte);
+        label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 16));
+        addComposantGraphique(label);
     }
 
     protected Supplier<String> addChampTexte() {

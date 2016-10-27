@@ -14,12 +14,29 @@ public abstract class VueEditSalle extends VuePrincipale {
     public void updateZones(List<Zone> zones) {
         // TODO Link controller + categorie, tarif
         clear();
+        
+        addTitre("Nouvelle zone:");
+        newLigne();
+        addTexte("");
+        addBouton("Creer", () -> {
+            Zone zone = new Zone(zones.size(), null);
+            zone.addRang();
+            zone.addNumero(0);
+            zones.add(zone);
+            updateZones(zones);
+        });
+        newLigne();
+        
+        addTitre("Liste des zones:");
+        newLigne();
         for (Zone zone : zones) {
+            addTexte("");
             addTexte("Zone n°" + zone.numero + ":");
             addTexte("Categorie");
             addTexte("TODO");
             newLigne();
             for (int rang = 0; rang < zone.places.size(); rang++) {
+                addTexte("");
                 addTexte("");
                 addTexte("Rang n°" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
                 final int r = rang;
@@ -30,20 +47,13 @@ public abstract class VueEditSalle extends VuePrincipale {
                 newLigne();
             }
             addTexte("");
+            addTexte("");
             addBouton("Ajouter rang", () -> {
                 zone.addRang();
                 updateZones(zones);
             });
             newLigne();
         }
-
-        addBouton("Ajouter zone", () -> {
-            Zone zone = new Zone(zones.size(), null);
-            zone.addRang();
-            zone.addNumero(0);
-            zones.add(zone);
-            updateZones(zones);
-        });
     }
 
 }

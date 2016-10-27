@@ -7,7 +7,7 @@ public class VueActionsAdmin extends VueActions {
     public VueActionsAdmin() {
         addAction("Gestions des comptes", () -> {});
         addAction("Modifier la salle", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(new ArrayList<>()) {}));
-        addAction("Modifier les tarifs", () -> {});
+        addAction("Modifier les tarifs", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueEditTarifs(new ArrayList<>()) {}));
         addAction("Archiver la base de donnee", () -> {});
         addAction("Deconnexion", () -> Controleur.Controleur.getInstance().deconnection());
     }
