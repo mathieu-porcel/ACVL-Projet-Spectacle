@@ -44,6 +44,9 @@ public class InterfaceGraphique extends JFrame {
         updateVue();
     }
 
+    /**
+     * Met à jour la fenêtre en y ajoutant toutes les vues en cours
+     */
     private void updateVue() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
