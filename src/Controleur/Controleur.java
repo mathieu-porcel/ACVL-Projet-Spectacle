@@ -8,6 +8,7 @@ import modele.Representation;
 import modele.Reservation;
 import modele.TypeComte;
 import vue.InterfaceGraphique;
+import vue.VueActionsAdmin;
 import vue.VueActionsNonConnecte;
 
 public class Controleur {
@@ -66,7 +67,8 @@ public class Controleur {
                         break;
                     case Admin:
                         isAdmin = true;
-                        //TODO addView admin
+                        InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin());
+                        InterfaceGraphique.getInstance().setVuePrincipale(null);
                         break;
                     default:
                         break;
