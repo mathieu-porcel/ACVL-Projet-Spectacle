@@ -51,6 +51,12 @@ public abstract class VuePrincipale extends JPanel {
         constraints.gridy++;
     }
 
+    protected void clear() {
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.removeAll();
+    }
+
     protected void addBouton(String texte, Runnable action) {
         JButton bouton = new JButton(texte);
         bouton.addActionListener(e -> action.run());
