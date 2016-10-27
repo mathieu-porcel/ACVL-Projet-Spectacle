@@ -7,6 +7,7 @@ import modele.Place;
 import modele.Representation;
 import modele.Reservation;
 import modele.TypeComte;
+import modele.Zone;
 import vue.InterfaceGraphique;
 import vue.VueActionsAdmin;
 import vue.VueActionsNonConnecte;
@@ -144,8 +145,17 @@ public class Controleur {
             defaultClient();
         }
     }
+
+    public void addRang(Zone zone){
+        if (zone!=null){
+            zone.addRang();
+        }
+    }
     
-    
-    
+    public void addNumero(Zone zone, int rang){
+        if (zone!=null && zone.places.size()<rang-1){
+            zone.addNumero(rang);
+        }
+    }
     
 }

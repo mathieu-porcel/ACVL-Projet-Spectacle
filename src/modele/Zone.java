@@ -15,11 +15,11 @@ public class Zone {
         this.categorie = categorie;
     }
     
-
-    public void addPlace(int rang, int numero){
-        while (rang>places.size()){
-            places.add(new ArrayList());
-        }
-        places.get(rang).add(numero, new Place(rang, numero));
+    public void addRang(){
+        places.add(new ArrayList());
+    }
+    
+    public void addNumero(int rang){
+        places.get(rang).add(new Place(rang, numero));
     }
 }
