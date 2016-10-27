@@ -17,4 +17,11 @@ public class Dossier {
         this.places = places;
     }
 
+    public ArrayList<Place> getPlaces(){
+        ArrayList<Place> placesRet = new ArrayList();
+        for (AchatPlace a : places){
+            placesRet.add(a.place);
+        }
+        return placesRet;
+    }
 }

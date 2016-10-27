@@ -24,15 +24,15 @@ public class Compte {
         this.prenom = prenom;
     }
     
-    public void reserve(Place place){
-        //TODO
+    public void reserve(Reservation reservation){
+        reservations.add(reservation);
     }
     
-    public void libere(Place place){
-        //TODO
+    public void libere(Reservation reservation){
+        reservations.remove(reservation);
     }
     
-    public void achat(Place place){
-        //TODO
+    public void achat(Dossier dossier){
+        achats.add(dossier);
     }
 }

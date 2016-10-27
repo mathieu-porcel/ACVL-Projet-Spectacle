@@ -16,7 +16,8 @@ public class Reservation {
     }
 
     public void libere(Place place){
-        //TODO
+        representation.libere(this);
+        compte.libere(this);
     }
     
 }

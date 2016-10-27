@@ -17,6 +17,6 @@ public class Zone {
     
 
     public void addPlace(int rang, int numero){
-        //TODO
+        places.add(new Place(rang, numero));
     }
 }

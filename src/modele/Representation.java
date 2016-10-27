@@ -16,16 +16,19 @@ public class Representation {
         this.placesLibre = placesLibre;
     }
     
-    public void reserve(Place place){
-        //TODO
+    public void reserve(Reservation reservation){
+        placesLibre.removeAll(reservation.places);
+        reservations.add(reservation);
     }
     
-    public void libere(Place place){
-        //TODO
+    public void libere(Reservation reservation){
+        reservations.remove(reservation);
+        placesLibre.addAll(reservation.places);
     }
     
-    public void achat(Place place){
-        //TODO
+    public void achat(Dossier dossier){
+        placesLibre.removeAll(dossier.getPlaces());
+        dossiers.add(dossier);
     }
     
 }

@@ -16,7 +16,7 @@ public class Spectacle {
         this.nom = nom;
     }
     
-    public void addRepresentation(Date date){
-        //TODO
+    public void addRepresentation(Date date, ArrayList places){
+        representations.add(new Representation(date, places));
     }
 }
