@@ -27,7 +27,7 @@ public class InterfaceGraphique extends JFrame {
      * Initialisation de l'interface graphique
      */
     private InterfaceGraphique() {
-        setTitle("Réservation Spectacle");
+        setTitle("Reservation Spectacle");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -44,6 +44,9 @@ public class InterfaceGraphique extends JFrame {
         updateVue();
     }
 
+    /**
+     * Met à jour la fenêtre en y ajoutant toutes les vues en cours
+     */
     private void updateVue() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
