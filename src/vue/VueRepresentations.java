@@ -13,7 +13,7 @@ public abstract class VueRepresentations extends VuePrincipale {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yy HH");
             addTexte(dateFormat.format(representation.date) + "H");
             addBouton("Acheter", () -> System.out.println("Achat: " + representation));
-            addBouton("Réserver", () -> System.out.println("Réservation: " + representation));
+            addBouton("Reserver", () -> System.out.println("Reservation: " + representation));
             newLigne();
         }
     }
