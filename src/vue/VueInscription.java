@@ -27,6 +27,6 @@ public class VueInscription extends VuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Inscription", () -> Controleur.getInstance().inscription());
+        addBouton("Inscription", () -> Controleur.getInstance().inscription(login.get(), nom.get(), prenom.get(), email.get(), motDePasse.get()));
     }
 }

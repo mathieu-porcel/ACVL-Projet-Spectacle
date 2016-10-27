@@ -15,6 +15,6 @@ public class VueConnexion extends VuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Connexion", () -> Controleur.getInstance().connection());
+        addBouton("Connexion", () -> Controleur.getInstance().connection(login.get(), motDePasse.get()));
     }
 }
