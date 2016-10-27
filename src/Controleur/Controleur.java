@@ -98,6 +98,7 @@ public class Controleur {
             currentUser = modele.getCompte("admin");
             //TODO addView admin
         } else {
+            isAdmin = false;
             nonConnecte();
         }
     }
