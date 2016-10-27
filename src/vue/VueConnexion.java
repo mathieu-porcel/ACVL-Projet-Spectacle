@@ -1,5 +1,6 @@
 package vue;
 
+import Controleur.Controleur;
 import java.util.function.Supplier;
 
 @SuppressWarnings("serial")
@@ -14,6 +15,6 @@ public class VueConnexion extends VuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Connexion", () -> System.out.println("Connexion: " + login.get() + " " + motDePasse.get()));
+        addBouton("Connexion", () -> Controleur.getInstance().connection());
     }
 }

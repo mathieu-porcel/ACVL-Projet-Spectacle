@@ -1,4 +1,8 @@
+package Controleur;
+
 import modele.Compte;
+import modele.Compte;
+import modele.Modele;
 import modele.Modele;
 import vue.InterfaceGraphique;
 import vue.VueActionsNonConnecte;
@@ -30,5 +34,13 @@ public class Controleur {
     
     public void nonConnecte(){
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
+    }
+    
+    public void connection(){
+        System.out.println("connection");
+    }
+    
+    public void inscription(){
+        System.out.println("inscription");
     }
 }

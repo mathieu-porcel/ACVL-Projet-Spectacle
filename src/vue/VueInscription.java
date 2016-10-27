@@ -1,5 +1,6 @@
 package vue;
 
+import Controleur.Controleur;
 import java.util.function.Supplier;
 
 @SuppressWarnings("serial")
@@ -13,7 +14,7 @@ public class VueInscription extends VuePrincipale {
         Supplier<String> nom = addChampTexte();
         newLigne();
 
-        addTexte("Prénom");
+        addTexte("Prï¿½nom");
         Supplier<String> prenom = addChampTexte();
         newLigne();
 
@@ -26,7 +27,6 @@ public class VueInscription extends VuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Inscription",
-                () -> System.out.println("Inscription: " + login.get() + " " + nom.get() + " " + prenom.get() + " " + email.get() + " " + motDePasse.get()));
+        addBouton("Inscription", () -> Controleur.getInstance().inscription());
     }
 }
