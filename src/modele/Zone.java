@@ -8,7 +8,7 @@ public class Zone {
     public int numero;
     
     public Categorie categorie;
-    public ArrayList<Place> places;
+    public ArrayList<ArrayList<Place>> places;
     
     public Zone(int numero, Categorie categorie) {
         this.numero = numero;
@@ -17,6 +17,9 @@ public class Zone {
     
 
     public void addPlace(int rang, int numero){
-        places.add(new Place(rang, numero));
+        while (rang>places.size()){
+            places.add(new ArrayList());
+        }
+        places.get(rang).add(numero, new Place(rang, numero));
     }
 }
