@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame {
 
-    private VueActions vueActions;
-    private VuePrincipale vuePrincipale;
+    private AbstractVueActions vueActions;
+    private AbstractVuePrincipale vuePrincipale;
 
     private static InterfaceGraphique instance;
 
@@ -34,12 +34,12 @@ public class InterfaceGraphique extends JFrame {
         setVisible(true);
     }
 
-    public void setVueActions(VueActions vueActions) {
+    public void setVueActions(AbstractVueActions vueActions) {
         this.vueActions = vueActions;
         updateVue();
     }
 
-    public void setVuePrincipale(VuePrincipale vuePrincipale) {
+    public void setVuePrincipale(AbstractVuePrincipale vuePrincipale) {
         this.vuePrincipale = vuePrincipale;
         updateVue();
     }

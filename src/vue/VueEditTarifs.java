@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import modele.Categorie;
 
 @SuppressWarnings("serial")
-public class VueEditTarifs extends VuePrincipale {
+public class VueEditTarifs extends AbstractVuePrincipale {
     public VueEditTarifs(List<Categorie> categories) {
         updateCategories(categories);
     }

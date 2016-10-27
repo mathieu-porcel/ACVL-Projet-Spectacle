@@ -4,7 +4,7 @@ import Controleur.Controleur;
 import java.util.function.Supplier;
 
 @SuppressWarnings("serial")
-public class VueConnexion extends VuePrincipale {
+public class VueConnexion extends AbstractVuePrincipale {
     public VueConnexion() {
         addTexte("Login");
         Supplier<String> login = addChampTexte();

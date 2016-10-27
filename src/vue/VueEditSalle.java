@@ -7,7 +7,7 @@ import modele.Place;
 import modele.Zone;
 
 @SuppressWarnings("serial")
-public abstract class VueEditSalle extends VuePrincipale {
+public abstract class VueEditSalle extends AbstractVuePrincipale {
     public VueEditSalle(List<Zone> zones) {
         updateZones(zones);
     }

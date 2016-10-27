@@ -6,9 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public abstract class VueActions extends JPanel {
+public abstract class AbstractVueActions extends JPanel {
 
-    public VueActions() {
+    public AbstractVueActions() {
         setLayout(new FlowLayout());
     }
 

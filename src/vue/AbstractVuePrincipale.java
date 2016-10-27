@@ -18,12 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public abstract class VuePrincipale extends JPanel {
+public abstract class AbstractVuePrincipale extends JPanel {
 
     private JPanel panel;
     private GridBagConstraints constraints;
 
-    public VuePrincipale() {
+    public AbstractVuePrincipale() {
         // ScrollPane acceuillant les composnants graphiques
         setLayout(new BorderLayout());
         panel = new JPanel();

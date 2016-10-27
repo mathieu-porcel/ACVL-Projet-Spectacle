@@ -3,7 +3,7 @@ package vue;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
-public class VueActionsAdmin extends VueActions {
+public class VueActionsAdmin extends AbstractVueActions {
     public VueActionsAdmin() {
         addAction("Gestions des comptes", () -> {});
         addAction("Modifier la salle", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(new ArrayList<>()) {}));

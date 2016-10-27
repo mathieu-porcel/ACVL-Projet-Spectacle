@@ -4,7 +4,7 @@ import Controleur.Controleur;
 import java.util.function.Supplier;
 
 @SuppressWarnings("serial")
-public class VueInscription extends VuePrincipale {
+public class VueInscription extends AbstractVuePrincipale {
     public VueInscription() {
         addTexte("Login");
         Supplier<String> login = addChampTexte();
