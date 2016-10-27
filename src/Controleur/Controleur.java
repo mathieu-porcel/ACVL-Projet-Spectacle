@@ -48,6 +48,14 @@ public class Controleur {
         return type == currentUser.type;
     }
     
+    private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places){
+        int i=0;
+        while (i<places.size() && representation.placesLibre.contains(places.get(i))){
+            i++;
+        }
+        return i==places.size();
+    }
+    
     public void nonConnecte(){
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
     }
@@ -87,17 +95,37 @@ public class Controleur {
         }
     }
     
+    public void deconnection(){
+        if (isAdmin){
+            currentUser = modele.getCompte("admin");
+            //TODO addView admin
+        } else {
+            nonConnecte();
+        }
+    }
+    
     public void reservePlace(Representation representation, ArrayList<Place> places){
-        if (verifieNotNull(representation, places) && places.size()>=1){
-            Reservation r = new Reservation(currentUser, places, representation);
+        if (verifieTypeCompte(TypeComte.Client) && verifieNotNull(representation, places) && places.size()>=1 && verifiePlaceDisponible(representation, places)){
+            new Reservation(currentUser, places, representation);
             //TODO addView client
         }
     }
     
     public void annuleResevation(Reservation reservation, Place place){
-        if(verifieNotNull(reservation, place)){
+        if(verifieTypeCompte(TypeComte.Client) && verifieNotNull(reservation, place)){
             reservation.libere(place);
             //TODO addView client
         }
     }
+    
+    public void achatDirect(Representation representation, ArrayList<Place> places){
+        if(verifieTypeCompte(TypeComte.Client) && verifieNotNull(places) && places.size()>=1 && verifiePlaceDisponible(representation, places)){
+            modele.createDossier(currentUser, places, representation);
+            //TODO addView client
+        }
+    }
+    
+    
+    
+    
 }
