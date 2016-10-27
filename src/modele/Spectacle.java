@@ -17,6 +17,6 @@ public class Spectacle {
     }
     
     public void addRepresentation(Date date, ArrayList places){
-        representations.add(new Representation(date, places));
+        representations.add(new Representation(date, places, this));
     }
 }

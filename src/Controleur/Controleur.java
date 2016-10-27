@@ -1,9 +1,11 @@
 package Controleur;
 
-import modele.Compte;
+import java.util.ArrayList;
 import modele.Compte;
 import modele.Modele;
-import modele.Modele;
+import modele.Place;
+import modele.Representation;
+import modele.Reservation;
 import modele.TypeComte;
 import vue.InterfaceGraphique;
 import vue.VueActionsNonConnecte;
@@ -33,7 +35,7 @@ public class Controleur {
         nonConnecte();
     }
     
-    private boolean verifieStringNotNull(String ... valeurs){
+    private boolean verifieNotNull(Object ... valeurs){
         int i = 0;
         while (i<valeurs.length && valeurs[i]!=null){
             i++;
@@ -41,12 +43,16 @@ public class Controleur {
         return i==valeurs.length;
     }
     
+    private boolean verifieTypeCompte(TypeComte type){
+        return type == currentUser.type;
+    }
+    
     public void nonConnecte(){
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
     }
     
     public void connection(String login, String password){
-        if (verifieStringNotNull(login, password)){
+        if (verifieNotNull(login, password)){
             Compte user = modele.getCompte(login);
             if (user!=null && user.password.equals(password)){
                 currentUser = user;
@@ -70,12 +76,26 @@ public class Controleur {
     }
     
     public void inscription(String login, String nom, String prenom, String email, String password){
-        if (verifieStringNotNull(login, nom, prenom, password)){
+        if (verifieNotNull(login, nom, prenom, password)){
             if (!modele.comptes.containsKey(login)){
                 Compte user = modele.addCompte(login, password, TypeComte.Client, email, nom, prenom);
                 currentUser = user;
                 //TODO addView client
             }
+        }
+    }
+    
+    public void reservePlace(Representation representation, ArrayList<Place> places){
+        if (verifieNotNull(representation, places) && places.size()>=1){
+            Reservation r = new Reservation(currentUser, places, representation);
+            //TODO addView client
+        }
+    }
+    
+    public void annuleResevation(Reservation reservation, Place place){
+        if(verifieNotNull(reservation, place)){
+            reservation.libere(place);
+            //TODO addView client
         }
     }
 }

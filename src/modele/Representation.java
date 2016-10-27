@@ -10,10 +10,14 @@ public class Representation {
     public ArrayList<Place> placesLibre;
     public ArrayList<Reservation> reservations;
     public ArrayList<Dossier> dossiers;
+    public Spectacle spectacle;
 
-    public Representation(Date date, ArrayList<Place> placesLibre) {
+    public Representation(Date date, ArrayList<Place> placesLibre, Spectacle spectacle) {
         this.date = date;
         this.placesLibre = placesLibre;
+        this.spectacle = spectacle;
+        this.reservations = new ArrayList();
+        this.dossiers = new ArrayList();
     }
     
     public void reserve(Reservation reservation){
