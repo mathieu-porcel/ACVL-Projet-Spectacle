@@ -6,7 +6,7 @@ public class VueActionsAdmin extends VueActions {
         addAction("Gestions des comptes", () -> {});
         addAction("Modifier la salle", () -> {});
         addAction("Modifier les tarifs", () -> {});
-        addAction("Archiver la base de donnée", () -> {});
-        addAction("Deconnexion", () -> {});
+        addAction("Archiver la base de donnï¿½e", () -> {});
+        addAction("Deconnexion", () -> {Controleur.Controleur.getInstance().deconnection();});
     }
 }

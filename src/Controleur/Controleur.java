@@ -33,7 +33,7 @@ public class Controleur {
         isAdmin = false;
         modele = new Modele();
         currentUser = null;
-        nonConnecte();
+        defaultNonConnecte();
     }
     
     private boolean verifieNotNull(Object ... valeurs){
@@ -56,8 +56,22 @@ public class Controleur {
         return i==places.size();
     }
     
-    public void nonConnecte(){
+    private void defaultNonConnecte(){
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
+        InterfaceGraphique.getInstance().setVuePrincipale(null);
+    }
+    
+    private void defaultClient(){
+        //TODO
+    }
+    
+    private void defaultResponsable(){
+        //TODO
+    }
+    
+    private void defaultAdmin(){
+        InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin());
+        InterfaceGraphique.getInstance().setVuePrincipale(null);
     }
     
     public void connection(String login, String password){
@@ -68,15 +82,14 @@ public class Controleur {
                 
                 if (null != user.type)switch (user.type) {
                     case Client:
-                        //TODO addView client
+                        defaultClient();
                         break;
                     case Responsable:
-                        //TODO addView responsable
+                        defaultResponsable();
                         break;
                     case Admin:
                         isAdmin = true;
-                        InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin());
-                        InterfaceGraphique.getInstance().setVuePrincipale(null);
+                        defaultAdmin();
                         break;
                     default:
                         break;
@@ -88,41 +101,47 @@ public class Controleur {
     public void inscription(String login, String nom, String prenom, String email, String password){
         if (verifieNotNull(login, nom, prenom, password)){
             if (!modele.comptes.containsKey(login)){
-                Compte user = modele.addCompte(login, password, TypeComte.Client, email, nom, prenom);
-                currentUser = user;
-                //TODO addView client
+                if (currentUser == null){
+                    Compte user = modele.addCompte(login, password, TypeComte.Client, email, nom, prenom);
+                    currentUser = user;
+                    defaultClient();
+                } else if (currentUser.type == TypeComte.Admin){
+                    modele.addCompte(login, password, TypeComte.Responsable, email, nom, prenom);
+                    defaultAdmin();
+                }                    
             }
         }
     }
     
     public void deconnection(){
-        if (isAdmin){
+        if (isAdmin && currentUser.type != TypeComte.Admin){
             currentUser = modele.getCompte("admin");
-            //TODO addView admin
+            defaultAdmin();
         } else {
             isAdmin = false;
-            nonConnecte();
+            currentUser = null;
+            defaultNonConnecte();
         }
     }
     
     public void reservePlace(Representation representation, ArrayList<Place> places){
         if (verifieTypeCompte(TypeComte.Client) && verifieNotNull(representation, places) && places.size()>=1 && verifiePlaceDisponible(representation, places)){
             new Reservation(currentUser, places, representation);
-            //TODO addView client
+            defaultClient();
         }
     }
     
     public void annuleResevation(Reservation reservation, Place place){
         if(verifieTypeCompte(TypeComte.Client) && verifieNotNull(reservation, place)){
             reservation.libere(place);
-            //TODO addView client
+            defaultClient();
         }
     }
     
     public void achatDirect(Representation representation, ArrayList<Place> places){
         if(verifieTypeCompte(TypeComte.Client) && verifieNotNull(places) && places.size()>=1 && verifiePlaceDisponible(representation, places)){
             modele.createDossier(currentUser, places, representation);
-            //TODO addView client
+            defaultClient();
         }
     }
     
