@@ -75,6 +75,9 @@ public class Controleur {
         InterfaceGraphique.getInstance().setVuePrincipale(null);
     }
     
+    
+    //Rien
+    
     public void connection(String login, String password){
         if (verifieNotNull(login, password)){
             Compte user = modele.getCompte(login);
@@ -125,6 +128,9 @@ public class Controleur {
         }
     }
     
+    
+    //Client
+    
     public void reservePlace(Representation representation, ArrayList<Place> places){
         if (verifieTypeCompte(TypeComte.Client) && verifieNotNull(representation, places) && places.size()>=1 && verifiePlaceDisponible(representation, places)){
             new Reservation(currentUser, places, representation);
@@ -146,14 +152,17 @@ public class Controleur {
         }
     }
 
+    
+    //Admin
+    
     public void addRang(Zone zone){
-        if (zone!=null){
+        if (verifieTypeCompte(TypeComte.Admin) && zone!=null){
             zone.addRang();
         }
     }
     
     public void addNumero(Zone zone, int rang){
-        if (zone!=null && zone.places.size()<rang-1){
+        if (verifieTypeCompte(TypeComte.Admin) && zone!=null && zone.places.size()<rang-1){
             zone.addNumero(rang);
         }
     }
