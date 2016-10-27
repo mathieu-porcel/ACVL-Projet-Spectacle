@@ -14,8 +14,6 @@ public class VueConnexion extends VuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Connexion", () -> {
-            System.out.println("Connexion: " + login.get() + " " + motDePasse.get());
-        });
+        addBouton("Connexion", () -> System.out.println("Connexion: " + login.get() + " " + motDePasse.get()));
     }
 }

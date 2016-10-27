@@ -53,9 +53,7 @@ public abstract class VuePrincipale extends JPanel {
 
     protected void addBouton(String texte, Runnable action) {
         JButton bouton = new JButton(texte);
-        bouton.addActionListener(e -> {
-            action.run();
-        });
+        bouton.addActionListener(e -> action.run());
         addComposantGraphique(bouton);
     }
 

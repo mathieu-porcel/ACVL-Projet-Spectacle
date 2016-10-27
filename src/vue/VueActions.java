@@ -17,9 +17,7 @@ public abstract class VueActions extends JPanel {
      */
     protected void addAction(String text, Runnable action) {
         JButton button = new JButton(text);
-        button.addActionListener(e -> {
-            action.run();
-        });
+        button.addActionListener(e -> action.run());
         add(button);
     }
 }

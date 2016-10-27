@@ -3,9 +3,13 @@ package vue;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame {
+
+    private VueActions vueActions;
+    private VuePrincipale vuePrincipale;
 
     private static InterfaceGraphique instance;
 
@@ -23,20 +27,33 @@ public class InterfaceGraphique extends JFrame {
      * Initialisation de l'interface graphique
      */
     private InterfaceGraphique() {
-        setLayout(new BorderLayout());
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    public void setVueActions(VueActions vue) {
-        add(vue, BorderLayout.NORTH);
-        vue.updateUI();
+    public void setVueActions(VueActions vueActions) {
+        this.vueActions = vueActions;
+        updateVue();
     }
 
-    public void setVuePrincipale(VuePrincipale vue) {
-        add(vue, BorderLayout.CENTER);
-        vue.updateUI();
+    public void setVuePrincipale(VuePrincipale vuePrincipale) {
+        this.vuePrincipale = vuePrincipale;
+        updateVue();
+    }
+
+    private void updateVue() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        if (vueActions != null) {
+            panel.add(vueActions, BorderLayout.NORTH);
+        }
+        if (vuePrincipale != null) {
+            panel.add(vuePrincipale, BorderLayout.CENTER);
+        }
+        setContentPane(panel);
+        repaint();
+        revalidate();
     }
 }
