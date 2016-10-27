@@ -1,5 +1,6 @@
 package vue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modele.Place;
@@ -12,12 +13,15 @@ public abstract class VueEditSalle extends VuePrincipale {
     }
 
     public void updateZones(List<Zone> zones) {
-        // TODO Link controller + categorie, tarif
+        // TODO Link controller + categorie
         clear();
-        
+
         addTitre("Nouvelle zone:");
-        newLigne();
-        addTexte("");
+        addTexte("Categorie");
+        ArrayList<String> categories = new ArrayList<>();
+        categories.add("test1");
+        categories.add("test2");
+        addListe(categories);
         addBouton("Creer", () -> {
             Zone zone = new Zone(zones.size(), null);
             zone.addRang();
@@ -26,12 +30,12 @@ public abstract class VueEditSalle extends VuePrincipale {
             updateZones(zones);
         });
         newLigne();
-        
+
         addTitre("Liste des zones:");
         newLigne();
         for (Zone zone : zones) {
             addTexte("");
-            addTexte("Zone n°" + zone.numero + ":");
+            addTexte("Zone n°" + (zone.numero+1) + ":");
             addTexte("Categorie");
             addTexte("TODO");
             newLigne();

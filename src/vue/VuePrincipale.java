@@ -5,9 +5,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 import java.util.function.Supplier;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -72,6 +74,12 @@ public abstract class VuePrincipale extends JPanel {
         JLabel label = new JLabel(texte);
         label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 16));
         addComposantGraphique(label);
+    }
+
+    protected Supplier<String> addListe(List<String> liste) {
+        JComboBox<Object> comboBox = new JComboBox<>(liste.toArray());
+        addComposantGraphique(comboBox);
+        return () -> comboBox.getSelectedItem().toString();
     }
 
     protected Supplier<String> addChampTexte() {
