@@ -10,7 +10,9 @@ import modele.TypeComte;
 import modele.Zone;
 import vue.InterfaceGraphique;
 import vue.VueActionsAdmin;
+import vue.VueActionsClient;
 import vue.VueActionsNonConnecte;
+import vue.VueActionsResponsable;
 
 public class Controleur {
 
@@ -63,11 +65,13 @@ public class Controleur {
     }
     
     private void defaultClient(){
-        //TODO
+        InterfaceGraphique.getInstance().setVueActions(new VueActionsClient());
+        InterfaceGraphique.getInstance().setVuePrincipale(null);
     }
     
     private void defaultResponsable(){
-        //TODO
+        InterfaceGraphique.getInstance().setVueActions(new VueActionsResponsable());
+        InterfaceGraphique.getInstance().setVuePrincipale(null);
     }
     
     private void defaultAdmin(){
