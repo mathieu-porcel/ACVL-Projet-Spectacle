@@ -18,6 +18,6 @@ public class Application {
             e.printStackTrace();
         }
 
-        Controleur.getInstance(); // TODO: chargement DB
+        Controleur.getInstance();
     }
 }

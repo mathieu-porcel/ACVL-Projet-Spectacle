@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.util.ArrayList;
+
 import modele.Compte;
 import modele.Modele;
 import modele.Place;
@@ -57,6 +58,10 @@ public class Controleur {
             i++;
         }
         return i==places.size();
+    }
+    
+    public void saveModele() {
+        modele.save();
     }
     
     private void defaultNonConnecte(){

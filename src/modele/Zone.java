@@ -1,9 +1,11 @@
 
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Zone {
+@SuppressWarnings("serial")
+public class Zone implements Serializable {
 
     public int numero;
 

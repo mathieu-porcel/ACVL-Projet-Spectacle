@@ -1,9 +1,11 @@
 
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Reservation {
+@SuppressWarnings("serial")
+public class Reservation implements Serializable {
     
     public ArrayList<Place> places;
     public Representation representation;

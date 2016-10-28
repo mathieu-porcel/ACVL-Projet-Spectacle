@@ -1,9 +1,11 @@
 
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Dossier {
+@SuppressWarnings("serial")
+public class Dossier implements Serializable {
     
     public int numero;
     public Compte compte;
@@ -18,7 +20,7 @@ public class Dossier {
     }
 
     public ArrayList<Place> getPlaces(){
-        ArrayList<Place> placesRet = new ArrayList();
+        ArrayList<Place> placesRet = new ArrayList<>();
         for (AchatPlace a : places){
             placesRet.add(a.place);
         }

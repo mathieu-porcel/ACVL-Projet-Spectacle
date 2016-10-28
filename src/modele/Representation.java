@@ -1,10 +1,12 @@
 
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Representation {
+@SuppressWarnings("serial")
+public class Representation implements Serializable {
 
     public Date date;
     public ArrayList<Place> placesLibre;
@@ -16,8 +18,8 @@ public class Representation {
         this.date = date;
         this.placesLibre = placesLibre;
         this.spectacle = spectacle;
-        this.reservations = new ArrayList();
-        this.dossiers = new ArrayList();
+        this.reservations = new ArrayList<>();
+        this.dossiers = new ArrayList<>();
     }
     
     public void reserve(Reservation reservation){

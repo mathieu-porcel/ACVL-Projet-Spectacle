@@ -1,7 +1,10 @@
 
 package modele;
 
-public class Place {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Place implements Serializable {
     
     public int rang;
     public int numero;

@@ -1,9 +1,11 @@
 
 package modele;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AchatPlace {
+@SuppressWarnings("serial")
+public class AchatPlace implements Serializable {
     
     public int numero;
     public Date date;

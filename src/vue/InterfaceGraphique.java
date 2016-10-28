@@ -1,9 +1,13 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame {
@@ -32,6 +36,14 @@ public class InterfaceGraphique extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+
+        // Sauvegarde du modèle à la fermeture de l'application
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Controleur.getInstance().saveModele();
+            }
+        });
     }
 
     public void setVueActions(AbstractVueActions vueActions) {

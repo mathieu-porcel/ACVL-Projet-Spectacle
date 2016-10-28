@@ -1,7 +1,10 @@
 
 package modele;
 
-public class Categorie {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Categorie implements Serializable {
     
     public String nom;
     public float tarif;
