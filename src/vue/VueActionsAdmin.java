@@ -16,8 +16,8 @@ public class VueActionsAdmin extends AbstractVueActions {
             comptes.add(new Compte("admin", "admin", TypeComte.Admin, "", "admin", "admin"));
             InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionComptes(comptes));
         });
-        addAction("Modifier la salle", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(new ArrayList<>()) {}));
-        addAction("Modifier les tarifs", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueEditTarifs(new ArrayList<>()) {}));
+        addAction("Modifier la salle", () -> Controleur.getInstance().editSalle());
+        addAction("Modifier les tarifs", () -> Controleur.getInstance().editTarifs());
         addAction("Archiver la base de donnee", () -> {});
         addAction("Deconnexion", () -> Controleur.getInstance().deconnection());
     }

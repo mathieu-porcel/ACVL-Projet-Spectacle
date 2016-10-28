@@ -14,4 +14,8 @@ public class Categorie implements Serializable {
         this.tarif = tarif;
     }
 
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

@@ -1,20 +1,15 @@
 package vue;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Supplier;
 
+import Controleur.Controleur;
 import modele.Categorie;
 
 @SuppressWarnings("serial")
 public class VueEditTarifs extends AbstractVuePrincipale {
-    public VueEditTarifs(List<Categorie> categories) {
-        updateCategories(categories);
-    }
 
-    public void updateCategories(List<Categorie> categories) {
-        // TODO controller
-        clear();
-
+    public VueEditTarifs(Collection<Categorie> categories) {
         addTitre("Nouvelle categorie:");
         newLigne();
         addTexte("");
@@ -23,14 +18,11 @@ public class VueEditTarifs extends AbstractVuePrincipale {
         newLigne();
         addTexte("");
         addTexte("Prix");
-        Supplier<String> prix = addChampTexte();
+        Supplier<String> tarif = addChampTexte();
         newLigne();
         addTexte("");
         addTexte("");
-        addBouton("Creer", () -> {
-            categories.add(new Categorie(nom.get(), Float.parseFloat(prix.get())));
-            updateCategories(categories);
-        });
+        addBouton("Creer", () -> Controleur.getInstance().addCategorie(nom.get(), tarif.get()));
         newLigne();
 
         addTitre("Liste des categories:");

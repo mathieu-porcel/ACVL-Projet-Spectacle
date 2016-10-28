@@ -6,7 +6,7 @@ import java.util.List;
 import modele.Representation;
 
 @SuppressWarnings("serial")
-public abstract class VueRepresentations extends AbstractVuePrincipale {
+public class VueRepresentations extends AbstractVuePrincipale {
     public VueRepresentations(List<Representation> representations) {
         for (Representation representation : representations) {
             addTexte(representation.spectacle.nom);

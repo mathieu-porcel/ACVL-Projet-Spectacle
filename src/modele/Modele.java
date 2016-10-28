@@ -117,9 +117,9 @@ public class Modele implements Serializable {
     }
 
     public Zone addZone(Categorie categorie) {
-        Zone z = new Zone(getFreeId(), categorie);
-        zones.put(z.numero, z);
-        return z;
+        Zone zone = new Zone(zones.size(), categorie);
+        zones.put(zone.numero, zone);
+        return zone;
     }
 
     public Zone getZone(int numero) {

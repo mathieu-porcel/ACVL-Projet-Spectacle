@@ -1,63 +1,40 @@
 package vue;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.function.Supplier;
 
-import modele.Place;
+import Controleur.Controleur;
+import modele.Categorie;
 import modele.Zone;
 
 @SuppressWarnings("serial")
-public abstract class VueEditSalle extends AbstractVuePrincipale {
-    public VueEditSalle(List<Zone> zones) {
-        updateZones(zones);
-    }
-
-    public void updateZones(List<Zone> zones) {
-        // TODO Link controller + categorie
-        clear();
-
+public class VueEditSalle extends AbstractVuePrincipale {
+    public VueEditSalle(Collection<Zone> zones, Collection<Categorie> categories) {
         addTitre("Nouvelle zone:");
         addTexte("Categorie");
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("test1");
-        categories.add("test2");
-        addListe(categories);
-        addBouton("Creer", () -> {
-            Zone zone = new Zone(zones.size(), null);
-            zone.addRang();
-            zone.addNumero(0);
-            zones.add(zone);
-            updateZones(zones);
-        });
+        Supplier<?> categorie = addListe(categories);
+        addBouton("Creer", () -> Controleur.getInstance().addZone((Categorie) categorie.get()));
         newLigne();
 
         addTitre("Liste des zones:");
         newLigne();
         for (Zone zone : zones) {
             addTexte("");
-            addTexte("Zone n°" + (zone.numero+1) + ":");
-            addTexte("Categorie");
-            addTexte("TODO");
+            addTexte("Zone n°" + (zone.numero + 1) + ":");
+            addTexte(zone.categorie.nom);
             newLigne();
-            for (int rang = 0; rang < zone.places.size(); rang++) {
+            for (int i = 0; i < zone.places.size(); i++) {
+                int rang = i;
                 addTexte("");
                 addTexte("");
                 addTexte("Rang n°" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
-                final int r = rang;
-                addBouton("Ajouter place", () -> {
-                    zone.places.get(r).add(new Place(0, 0));
-                    updateZones(zones);
-                });
+                addBouton("Ajouter place", () -> Controleur.getInstance().addNumero(zone, rang));
                 newLigne();
             }
             addTexte("");
             addTexte("");
-            addBouton("Ajouter rang", () -> {
-                zone.addRang();
-                updateZones(zones);
-            });
+            addBouton("Ajouter rang", () -> Controleur.getInstance().addRang(zone));
             newLigne();
         }
     }
-
 }

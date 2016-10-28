@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Supplier;
 
 import javax.swing.JButton;
@@ -54,12 +54,6 @@ public abstract class AbstractVuePrincipale extends JPanel {
         constraints.gridy++;
     }
 
-    protected void clear() {
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        panel.removeAll();
-    }
-
     protected void addBouton(String texte, Runnable action) {
         JButton bouton = new JButton(texte);
         bouton.addActionListener(e -> action.run());
@@ -76,10 +70,10 @@ public abstract class AbstractVuePrincipale extends JPanel {
         addComposantGraphique(label);
     }
 
-    protected Supplier<String> addListe(List<String> liste) {
+    protected Supplier<?> addListe(Collection<?> liste) {
         JComboBox<Object> comboBox = new JComboBox<>(liste.toArray());
         addComposantGraphique(comboBox);
-        return () -> comboBox.getSelectedItem().toString();
+        return () -> comboBox.getSelectedItem();
     }
 
     protected Supplier<String> addChampTexte() {
