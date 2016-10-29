@@ -25,4 +25,12 @@ public class Zone implements Serializable {
     public void addNumero(int rang) {
         places.get(rang).add(new Place(rang, numero));
     }
+    
+    public ArrayList<Place> getPlace(){
+        ArrayList<Place> ret = new ArrayList();
+        for (ArrayList<Place> p : places){
+            ret.addAll(p);
+        }
+        return ret;
+    }
 }

@@ -9,32 +9,45 @@ import java.util.Date;
 public class Representation implements Serializable {
 
     public Date date;
-    public ArrayList<Place> placesOccupee;
+    public Salle salle;
     public ArrayList<Reservation> reservations;
     public ArrayList<Dossier> dossiers;
     public Spectacle spectacle;
 
-    public Representation(Date date, Spectacle spectacle) {
+    public Representation(Date date, Spectacle spectacle, Salle salle) {
         this.date = date;
         this.spectacle = spectacle;
-        this.placesOccupee = new ArrayList<>();
+        this.salle = salle;
         this.reservations = new ArrayList<>();
         this.dossiers = new ArrayList<>();
     }
 
     public void reserve(Reservation reservation) {
-        placesOccupee.addAll(reservation.places);
         reservations.add(reservation);
     }
 
     public void libere(Reservation reservation) {
         reservations.remove(reservation);
-        placesOccupee.removeAll(reservation.places);
     }
 
     public void achat(Dossier dossier) {
-        placesOccupee.addAll(dossier.getPlaces());
         dossiers.add(dossier);
+    }
+    
+    public ArrayList<Place> getPlacesReserver(){
+        ArrayList<Place> ret = new ArrayList();
+        for (Reservation r : reservations){
+            ret.addAll(r.places);
+        }
+        return ret;
+    }
+    
+    public ArrayList<Place> getPlacesAcheter(){
+        ArrayList<Place> ret = new ArrayList();
+        for (Dossier d : dossiers){
+            ret.addAll(d.getPlaces());
+        }
+        return ret;
     }
 
 }

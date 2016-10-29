@@ -21,7 +21,7 @@ public class Modele implements Serializable {
     public HashMap<String, Compte> comptes;
     public HashMap<Integer, Spectacle> spectacles;
     public HashMap<String, Categorie> categories;
-    public HashMap<Integer, Zone> zones;
+    public Salle salle;
 
     public Modele() {
         load(defaultSave);
@@ -41,7 +41,7 @@ public class Modele implements Serializable {
                 comptes = modele.comptes;
                 spectacles = modele.spectacles;
                 categories = modele.categories;
-                zones = modele.zones;
+                salle = modele.salle;
                 s.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,7 +53,7 @@ public class Modele implements Serializable {
             comptes = new HashMap<>();
             spectacles = new HashMap<>();
             categories = new HashMap<>();
-            zones = new HashMap<>();
+            salle = new Salle();
             comptes.put("admin", new Compte("admin", "admin", TypeComte.Admin, null, "Admin", "Admin"));
         }
     }
@@ -117,13 +117,13 @@ public class Modele implements Serializable {
     }
 
     public Zone addZone(Categorie categorie) {
-        Zone zone = new Zone(zones.size(), categorie);
-        zones.put(zone.numero, zone);
+        Zone zone = new Zone(salle.zones.size(), categorie);
+        salle.zones.put(zone.numero, zone);
         return zone;
     }
 
     public Zone getZone(int numero) {
-        return zones.get(numero);
+        return salle.zones.get(numero);
     }
 
     public Dossier createDossier(Compte user, List<Place> places, Representation representation) {

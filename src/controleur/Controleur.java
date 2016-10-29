@@ -61,7 +61,7 @@ public class Controleur {
 
     private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
         for (Place place : places) {
-            if (representation.placesOccupee.contains(place)) {
+            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place) || representation.getPlacesAcheter().contains(place)) {
                 return false;
             }
         }
@@ -186,7 +186,7 @@ public class Controleur {
 
     public void addRepresentation(Spectacle spectacle, Date date) {
         if (verifieTypeCompte(TypeComte.Responsable)) {
-            spectacle.addRepresentation(date);
+            spectacle.addRepresentation(date, modele.salle);
             gestionSpectacles();
         }
     }
@@ -195,7 +195,7 @@ public class Controleur {
 
     public void editSalle() {
         if (verifieTypeCompte(TypeComte.Admin)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(modele.zones.values(), modele.categories.values()));
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(modele.salle.zones.values(), modele.categories.values()));
         }
     }
 

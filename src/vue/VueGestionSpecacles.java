@@ -23,7 +23,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
         for (Spectacle spectacle : spectacles) {
             addTexte("");
             addTexte(spectacle.nom);
-            addTexte("(n°" + spectacle.numero + ")");
+            addTexte("(nï¿½" + spectacle.numero + ")");
             addBouton("Nouvelle representation", () -> Controleur.getInstance().addRepresentation(spectacle, new Date())); // TODO: date
             newLigne();
 
@@ -33,7 +33,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("Representation");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yy HH");
                 addTexte("(" + dateFormat.format(representation.date) + "H)");
-                addTexte(representation.placesOccupee.size() + " places reservee dont 0 achetees"); // TODO: nb places achetees / reservees
+                addTexte(representation.getPlacesReserver().size() + " places reservee et "+representation.getPlacesAcheter().size()+" achetees");
                 newLigne();
             }
         }

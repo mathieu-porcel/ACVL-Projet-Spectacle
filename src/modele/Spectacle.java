@@ -19,7 +19,7 @@ public class Spectacle implements Serializable {
         this.representations = new ArrayList<>();
     }
     
-    public void addRepresentation(Date date){
-        representations.add(new Representation(date, this));
+    public void addRepresentation(Date date, Salle salle){
+        representations.add(new Representation(date, this, salle));
     }
 }
