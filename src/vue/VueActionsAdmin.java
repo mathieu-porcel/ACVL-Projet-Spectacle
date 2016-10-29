@@ -10,12 +10,7 @@ import modele.TypeComte;
 public class VueActionsAdmin extends AbstractVueActions {
     public VueActionsAdmin() {
         // TODO: use controller
-        addAction("Gestions des comptes", () -> {
-            // TODO: get users from model
-            ArrayList<Compte> comptes = new ArrayList<>();
-            comptes.add(new Compte("admin", "admin", TypeComte.Admin, "", "admin", "admin"));
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionComptes(comptes));
-        });
+        addAction("Gestions des comptes", () -> Controleur.getInstance().gestionCompte());
         addAction("Modifier la salle", () -> Controleur.getInstance().editSalle());
         addAction("Modifier les tarifs", () -> Controleur.getInstance().editTarifs());
         addAction("Archiver la base de donnee", () -> {});

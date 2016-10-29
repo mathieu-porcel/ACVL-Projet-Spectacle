@@ -17,7 +17,7 @@ import vue.VueActionsNonConnecte;
 import vue.VueActionsResponsable;
 import vue.VueEditSalle;
 import vue.VueEditTarifs;
-import vue.VueRepresentations;
+import vue.VueGestionComptes;
 
 public class Controleur {
 
@@ -208,5 +208,28 @@ public class Controleur {
                 editTarifs();
             }
         } catch (NumberFormatException e) {}
+    }
+    
+    public void gestionCompte(){
+        if (verifieTypeCompte(TypeComte.Admin)){
+            ArrayList<Compte> comptes = new ArrayList();
+            for (Compte c : modele.comptes.values()){
+                if (c.type != TypeComte.Admin){
+                    comptes.add(c);
+                }
+            }
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionComptes(comptes));
+        }
+    }
+    
+    public void usurper(Compte usurpation){
+       if  (verifieTypeCompte(TypeComte.Admin) && usurpation != null && usurpation.type != TypeComte.Admin){
+           currentUser = usurpation;
+           if (verifieTypeCompte(TypeComte.Client)){
+               defaultClient();
+           } else if (verifieTypeCompte(TypeComte.Responsable)){
+               defaultResponsable();
+           }
+       } 
     }
 }

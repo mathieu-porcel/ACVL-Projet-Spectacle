@@ -18,9 +18,7 @@ public class VueGestionComptes extends AbstractVuePrincipale {
             addTexte(compte.nom);
             addTexte(compte.prenom);
             addTexte("(" + compte.login + ")");
-            addBouton("Usurper", () -> {
-                // TODO
-            });
+            addBouton("Usurper", () -> Controleur.Controleur.getInstance().usurper(compte));
             newLigne();
         }
     }
