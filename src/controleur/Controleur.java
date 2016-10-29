@@ -1,4 +1,4 @@
-package Controleur;
+package controleur;
 
 import java.util.ArrayList;
 
@@ -212,7 +212,7 @@ public class Controleur {
     
     public void gestionCompte(){
         if (verifieTypeCompte(TypeComte.Admin)){
-            ArrayList<Compte> comptes = new ArrayList();
+            ArrayList<Compte> comptes = new ArrayList<>();
             for (Compte c : modele.comptes.values()){
                 if (c.type != TypeComte.Admin){
                     comptes.add(c);

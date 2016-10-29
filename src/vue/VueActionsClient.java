@@ -2,7 +2,7 @@ package vue;
 
 import java.util.ArrayList;
 
-import Controleur.Controleur;
+import controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class VueActionsClient extends AbstractVueActions {

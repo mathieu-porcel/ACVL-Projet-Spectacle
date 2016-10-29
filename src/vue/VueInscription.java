@@ -1,7 +1,8 @@
 package vue;
 
-import Controleur.Controleur;
 import java.util.function.Supplier;
+
+import controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class VueInscription extends AbstractVuePrincipale {

@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Controleur.Controleur;
+import controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame {

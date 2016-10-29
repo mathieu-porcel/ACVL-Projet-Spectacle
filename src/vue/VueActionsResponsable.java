@@ -1,6 +1,6 @@
 package vue;
 
-import Controleur.Controleur;
+import controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class VueActionsResponsable extends AbstractVueActions {

@@ -1,10 +1,6 @@
 package vue;
 
-import java.util.ArrayList;
-
-import Controleur.Controleur;
-import modele.Compte;
-import modele.TypeComte;
+import controleur.Controleur;
 
 @SuppressWarnings("serial")
 public class VueActionsAdmin extends AbstractVueActions {

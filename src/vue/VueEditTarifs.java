@@ -3,7 +3,7 @@ package vue;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import Controleur.Controleur;
+import controleur.Controleur;
 import modele.Categorie;
 
 @SuppressWarnings("serial")
