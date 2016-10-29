@@ -3,6 +3,7 @@ package modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 @SuppressWarnings("serial")
@@ -10,7 +11,7 @@ public class Representation implements Serializable {
 
     public Date date;
     public Salle salle;
-    public ArrayList<Reservation> reservations;
+    private ArrayList<Reservation> reservations;
     public ArrayList<Dossier> dossiers;
     public Spectacle spectacle;
 
@@ -22,21 +23,45 @@ public class Representation implements Serializable {
         this.dossiers = new ArrayList<>();
     }
 
-    public void reserve(Reservation reservation) {
-        reservations.add(reservation);
+    public boolean reserve(Reservation reservation) {
+        if (!isEndReservation()){
+            getReservations().add(reservation);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void libere(Reservation reservation) {
-        reservations.remove(reservation);
+        getReservations().remove(reservation);
     }
 
     public void achat(Dossier dossier) {
         dossiers.add(dossier);
     }
     
+    private boolean isEndReservation(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+        return cal.getTime().getTime() >= date.getTime();
+    }
+    
+    public ArrayList<Reservation> getReservations(){
+        if (isEndReservation() && !reservations.isEmpty()){
+            for (Reservation r : reservations){
+                for (Place p : r.places){
+                    r.libere(p);
+                }
+            }
+            reservations.clear();
+        }
+        return reservations;
+    }
+    
     public ArrayList<Place> getPlacesReserver(){
         ArrayList<Place> ret = new ArrayList();
-        for (Reservation r : reservations){
+        for (Reservation r : getReservations()){
             ret.addAll(r.places);
         }
         return ret;
