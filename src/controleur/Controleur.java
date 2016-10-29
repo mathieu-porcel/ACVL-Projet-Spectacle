@@ -2,6 +2,7 @@ package controleur;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import modele.Categorie;
 import modele.Compte;
@@ -67,6 +68,39 @@ public class Controleur {
         }
         return true;
     }
+    
+    private Date stringToDate(String date){
+        String[] jour = date.split("/");
+        if (jour.length != 3){
+            return null;
+        }
+        try {
+            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1])-1, Integer.valueOf(jour[0])).getTime();
+        } catch (NumberFormatException e){
+            return null;
+        }
+    }
+    
+    private Date stringToDateWithHour(String date){
+        String[] split = date.split(" ");
+        if (split.length != 2){
+            return null;
+        }
+        String[] jour = split[0].split("/");
+        if (jour.length != 3){
+            return null;
+        }
+        String[] heur = split[1].split(":");
+        if (heur.length != 2){
+            return null;
+        }
+        try {
+            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1])-1, Integer.valueOf(jour[0]), Integer.valueOf(heur[0]), Integer.valueOf(heur[1])).getTime();
+        } catch (NumberFormatException e){
+            return null;
+        }
+    }
+    
 
     public void saveModele() {
         modele.save();
@@ -184,10 +218,13 @@ public class Controleur {
         }
     }
 
-    public void addRepresentation(Spectacle spectacle, Date date) {
-        if (verifieTypeCompte(TypeComte.Responsable)) {
-            spectacle.addRepresentation(date, modele.salle);
-            gestionSpectacles();
+    public void addRepresentation(Spectacle spectacle, String date) {
+        if (verifieTypeCompte(TypeComte.Responsable) && verifieNotNull(spectacle, date)) {
+            Date d = stringToDateWithHour(date);
+            if (d!=null){
+                spectacle.addRepresentation(d, modele.salle);
+                gestionSpectacles();
+            }
         }
     }
 
