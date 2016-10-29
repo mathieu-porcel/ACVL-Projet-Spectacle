@@ -1,6 +1,7 @@
 package controleur;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import modele.Categorie;
 import modele.Compte;
@@ -8,6 +9,7 @@ import modele.Modele;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
+import modele.Spectacle;
 import modele.TypeComte;
 import modele.Zone;
 import vue.InterfaceGraphique;
@@ -18,6 +20,7 @@ import vue.VueActionsResponsable;
 import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
+import vue.VueGestionSpecacles;
 
 public class Controleur {
 
@@ -57,11 +60,12 @@ public class Controleur {
     }
 
     private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
-        int i = 0;
-        while (i < places.size() && representation.placesLibre.contains(places.get(i))) {
-            i++;
+        for (Place place : places) {
+            if (representation.placesOccupee.contains(place)) {
+                return false;
+            }
         }
-        return i == places.size();
+        return true;
     }
 
     public void saveModele() {
@@ -165,6 +169,28 @@ public class Controleur {
         }
     }
 
+    // Responsable
+
+    public void gestionSpectacles() {
+        if (verifieTypeCompte(TypeComte.Responsable)) {
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionSpecacles(modele.spectacles.values()));
+        }
+    }
+
+    public void addSpectacle(String nom) {
+        if (verifieTypeCompte(TypeComte.Responsable) && !modele.spectacles.containsKey(nom)) {
+            modele.addSpectacle(nom);
+            gestionSpectacles();
+        }
+    }
+
+    public void addRepresentation(Spectacle spectacle, Date date) {
+        if (verifieTypeCompte(TypeComte.Responsable)) {
+            spectacle.addRepresentation(date);
+            gestionSpectacles();
+        }
+    }
+
     // Admin
 
     public void editSalle() {
@@ -209,27 +235,27 @@ public class Controleur {
             }
         } catch (NumberFormatException e) {}
     }
-    
-    public void gestionCompte(){
-        if (verifieTypeCompte(TypeComte.Admin)){
+
+    public void gestionCompte() {
+        if (verifieTypeCompte(TypeComte.Admin)) {
             ArrayList<Compte> comptes = new ArrayList<>();
-            for (Compte c : modele.comptes.values()){
-                if (c.type != TypeComte.Admin){
+            for (Compte c : modele.comptes.values()) {
+                if (c.type != TypeComte.Admin) {
                     comptes.add(c);
                 }
             }
             InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionComptes(comptes));
         }
     }
-    
-    public void usurper(Compte usurpation){
-       if  (verifieTypeCompte(TypeComte.Admin) && usurpation != null && usurpation.type != TypeComte.Admin){
-           currentUser = usurpation;
-           if (verifieTypeCompte(TypeComte.Client)){
-               defaultClient();
-           } else if (verifieTypeCompte(TypeComte.Responsable)){
-               defaultResponsable();
-           }
-       } 
+
+    public void usurper(Compte usurpation) {
+        if (verifieTypeCompte(TypeComte.Admin) && usurpation != null && usurpation.type != TypeComte.Admin) {
+            currentUser = usurpation;
+            if (verifieTypeCompte(TypeComte.Client)) {
+                defaultClient();
+            } else if (verifieTypeCompte(TypeComte.Responsable)) {
+                defaultResponsable();
+            }
+        }
     }
 }

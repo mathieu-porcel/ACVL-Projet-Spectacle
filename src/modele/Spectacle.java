@@ -16,9 +16,10 @@ public class Spectacle implements Serializable {
     public Spectacle(int numero, String nom) {
         this.numero = numero;
         this.nom = nom;
+        this.representations = new ArrayList<>();
     }
     
-    public void addRepresentation(Date date, ArrayList<Place> places){
-        representations.add(new Representation(date, places, this));
+    public void addRepresentation(Date date){
+        representations.add(new Representation(date, this));
     }
 }
