@@ -24,6 +24,7 @@ import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
 import vue.VueGestionSpecacles;
+import vue.VueRepresentations;
 
 public class Controleur {
 
@@ -112,17 +113,17 @@ public class Controleur {
 
     private void defaultClient() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsClient());
-        InterfaceGraphique.getInstance().setVuePrincipale(null);
+        listeRepresentations();
     }
 
     private void defaultResponsable() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsResponsable());
-        InterfaceGraphique.getInstance().setVuePrincipale(null);
+        gestionSpectacles();
     }
 
     private void defaultAdmin() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin());
-        InterfaceGraphique.getInstance().setVuePrincipale(null);
+        gestionCompte();
     }
 
     // Rien
@@ -207,6 +208,12 @@ public class Controleur {
         }
     }
 
+    public void listeRepresentations() {
+        if (verifieTypeCompte(TypeComte.Client)) {
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueRepresentations(modele.spectacles.values()));
+        }
+    }
+
     // Responsable
 
     public void gestionSpectacles() {
@@ -225,15 +232,15 @@ public class Controleur {
     public void addRepresentation(Spectacle spectacle, String date) {
         if (verifieTypeCompte(TypeComte.Responsable) && verifieNotNull(spectacle, date)) {
             Date d = stringToDateWithHour(date);
-            if (d != null /*&& new Date().getTime()<=d.getTime()*/) { //TODO comment for test/dev. Uncommetn for prod
+            if (d != null /* && new Date().getTime()<=d.getTime() */) { // TODO comment for test/dev. Uncommetn for prod
                 spectacle.addRepresentation(d, modele.salle);
                 gestionSpectacles();
             }
         }
     }
-    
-    public void annullerRepresentation(Representation representation){
-        if (verifieTypeCompte(TypeComte.Responsable) && representation!=null && new Date().getTime()<=representation.date.getTime()){
+
+    public void annullerRepresentation(Representation representation) {
+        if (verifieTypeCompte(TypeComte.Responsable) && representation != null && new Date().getTime() <= representation.date.getTime()) {
             representation.annuler();
             gestionSpectacles();
         }

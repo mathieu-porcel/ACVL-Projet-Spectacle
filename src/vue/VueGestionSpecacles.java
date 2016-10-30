@@ -12,13 +12,13 @@ import modele.Spectacle;
 @SuppressWarnings("serial")
 public class VueGestionSpecacles extends AbstractVuePrincipale {
     public VueGestionSpecacles(Collection<Spectacle> spectacles) {
-        addTitre("Nouveau spectacle");
+        addTitre("Nouveau spectacle:");
         addTexte("Nom");
         Supplier<String> nomSepctacle = addChampTexte();
         addBouton("Creer", () -> Controleur.getInstance().addSpectacle(nomSepctacle.get()));
         newLigne();
 
-        addTitre("Liste des spectacles");
+        addTitre("Liste des spectacles:");
         newLigne();
         for (Spectacle spectacle : spectacles) {
             addTexte("");
@@ -36,10 +36,10 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("");
                 addTexte("");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
-                addTexte("Representation � " + (representation.isAnnuler?"(annulé) ":"") + dateFormat.format(representation.date) + "H");
+                addTexte("Representation a " + (representation.isAnnuler ? "(annulee) " : "") + dateFormat.format(representation.date) + "H");
                 addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
-                if (new Date().getTime()<=representation.date.getTime() && !representation.isAnnuler) { 
-                    addBouton("Annuler", () -> Controleur.getInstance().annullerRepresentation(representation) );
+                if (new Date().getTime() <= representation.date.getTime() && !representation.isAnnuler) {
+                    addBouton("Annuler", () -> Controleur.getInstance().annullerRepresentation(representation));
                 }
                 newLigne();
             }

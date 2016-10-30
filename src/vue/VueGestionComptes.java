@@ -8,7 +8,7 @@ import modele.Compte;
 public class VueGestionComptes extends AbstractVuePrincipale {
     public VueGestionComptes(List<Compte> comptes) {
         addTitre("Ajouter un nouveau compte:");
-        addBouton("Creer", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
+        addBouton("Creer un compte responsable", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
         newLigne();
 
         addTitre("Liste des comptes:");
