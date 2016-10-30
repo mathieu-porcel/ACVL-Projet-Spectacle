@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -86,7 +87,7 @@ public abstract class AbstractVuePrincipale extends JPanel {
 
         // Mois
         JComboBox<String> mois = new JComboBox<>(
-                new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" });
+                new String[] { "Janvier", "Fï¿½vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" });
         panel.add(mois);
 
         // Annees
@@ -125,5 +126,17 @@ public abstract class AbstractVuePrincipale extends JPanel {
         JPasswordField champ = new JPasswordField(16);
         addComposantGraphique(champ);
         return () -> new String(champ.getPassword());
+    }
+    
+    protected Supplier<Boolean> addCheckbox(){
+        JCheckBox checkbox = new JCheckBox();
+        addComposantGraphique(checkbox);
+        return () -> checkbox.isSelected();
+    }
+    
+    protected void addCheckboxLock(){
+        JCheckBox checkbox = new JCheckBox();
+        addComposantGraphique(checkbox);
+        checkbox.setEnabled(false);
     }
 }

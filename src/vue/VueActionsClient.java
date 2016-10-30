@@ -9,7 +9,7 @@ public class VueActionsClient extends AbstractVueActions {
         super(compte, isAdmin);
         addAction("Liste des representations", () -> Controleur.getInstance().listeRepresentations());
         addAction("Achats", () -> Controleur.getInstance().listeAchats());
-        addAction("Réservations", () -> Controleur.getInstance().listeReservations());
+        addAction("Reservations", () -> Controleur.getInstance().listeReservations());
         addAction("Deconnexion", () -> Controleur.getInstance().deconnection());
     }
 }

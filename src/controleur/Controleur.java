@@ -20,6 +20,7 @@ import vue.VueActionsAdmin;
 import vue.VueActionsClient;
 import vue.VueActionsNonConnecte;
 import vue.VueActionsResponsable;
+import vue.VueChoixPlaces;
 import vue.VueConnexion;
 import vue.VueEditSalle;
 import vue.VueEditTarifs;
@@ -204,7 +205,8 @@ public class Controleur {
     }
 
     public void achatDirect(Representation representation, ArrayList<Place> places) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(places) && places.size() >= 1 && verifiePlaceDisponible(representation, places)) {
+        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(places) && places.size() >= 1 && verifiePlaceDisponible(representation, places)
+                && new Date().getTime() <= representation.date.getTime()) {
             modele.createDossier(currentUser, places, representation);
             defaultClient();
         }
@@ -213,6 +215,14 @@ public class Controleur {
     public void listeRepresentations() {
         if (verifieTypeCompte(TypeCompte.Client)) {
             InterfaceGraphique.getInstance().setVuePrincipale(new VueRepresentations(modele.spectacles.values()));
+        }
+    }
+
+    public void choixPlaces(Representation representation, boolean isAchat) {
+        if (verifieTypeCompte(TypeCompte.Client) && representation != null) {
+            ArrayList<Place> occupe = representation.getPlacesAcheter();
+            occupe.addAll(representation.getPlacesReserver());
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueChoixPlaces(representation, occupe, isAchat));
         }
     }
 

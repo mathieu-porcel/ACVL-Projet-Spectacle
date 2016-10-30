@@ -7,8 +7,8 @@ import modele.Compte;
 @SuppressWarnings("serial")
 public class VueGestionComptes extends AbstractVuePrincipale {
     public VueGestionComptes(List<Compte> comptes) {
-        addTitre("Ajouter un nouveau compte:");
-        addBouton("Creer un compte responsable", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
+        addTitre("Ajouter un responsable:");
+        addBouton("Creer", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
         newLigne();
 
         addTitre("Liste des comptes:");
