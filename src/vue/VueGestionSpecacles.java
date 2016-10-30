@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 import controleur.Controleur;
+import java.util.Date;
 import modele.Representation;
 import modele.Spectacle;
 
@@ -21,7 +22,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
         newLigne();
         for (Spectacle spectacle : spectacles) {
             addTexte("");
-            addTexte("n°" + spectacle.numero + ":");
+            addTexte("nï¿½" + spectacle.numero + ":");
             addTexte(spectacle.nom);
             newLigne();
 
@@ -35,9 +36,11 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("");
                 addTexte("");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
-                addTexte("Representation à " + dateFormat.format(representation.date) + "H");
+                addTexte("Representation ï¿½ " + (representation.isAnnuler?"(annulÃ©) ":"") + dateFormat.format(representation.date) + "H");
                 addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
-                addBouton("Annuler", () -> {/* TODO, ne pas afficher si la representation a deja eu lieu */});
+                if (new Date().getTime()<=representation.date.getTime() && !representation.isAnnuler) { 
+                    addBouton("Annuler", () -> Controleur.getInstance().annullerRepresentation(representation) );
+                }
                 newLigne();
             }
         }

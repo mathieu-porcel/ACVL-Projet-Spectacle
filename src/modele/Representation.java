@@ -14,6 +14,8 @@ public class Representation implements Serializable {
     private ArrayList<Reservation> reservations;
     public ArrayList<Dossier> dossiers;
     public Spectacle spectacle;
+    
+    public boolean isAnnuler;
 
     public Representation(Date date, Spectacle spectacle, Salle salle) {
         this.date = date;
@@ -21,10 +23,11 @@ public class Representation implements Serializable {
         this.salle = salle;
         this.reservations = new ArrayList<>();
         this.dossiers = new ArrayList<>();
+        this.isAnnuler = false;
     }
 
     public boolean reserve(Reservation reservation) {
-        if (!isEndReservation()){
+        if (!isEndReservation() && !isAnnuler){
             getReservations().add(reservation);
             return true;
         } else {
@@ -71,6 +74,10 @@ public class Representation implements Serializable {
             ret.addAll(d.getPlaces());
         }
         return ret;
+    }
+    
+    public void annuler(){
+        isAnnuler = true;
     }
 
 }

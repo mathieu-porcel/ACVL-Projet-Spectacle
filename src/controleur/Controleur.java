@@ -225,10 +225,17 @@ public class Controleur {
     public void addRepresentation(Spectacle spectacle, String date) {
         if (verifieTypeCompte(TypeComte.Responsable) && verifieNotNull(spectacle, date)) {
             Date d = stringToDateWithHour(date);
-            if (d != null) {
+            if (d != null /*&& new Date().getTime()<=d.getTime()*/) { //TODO comment for test/dev. Uncommetn for prod
                 spectacle.addRepresentation(d, modele.salle);
                 gestionSpectacles();
             }
+        }
+    }
+    
+    public void annullerRepresentation(Representation representation){
+        if (verifieTypeCompte(TypeComte.Responsable) && representation!=null && new Date().getTime()<=representation.date.getTime()){
+            representation.annuler();
+            gestionSpectacles();
         }
     }
 
