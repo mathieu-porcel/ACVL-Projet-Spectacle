@@ -9,7 +9,7 @@ public class Compte implements Serializable {
     
     public String login;
     public String password;
-    public TypeComte type;
+    public TypeCompte type;
     public String email;
     public String nom;
     public String prenom;
@@ -17,7 +17,7 @@ public class Compte implements Serializable {
     private ArrayList<Reservation> reservations; 
     public ArrayList<Dossier> achats;
     
-    public Compte(String login, String password, TypeComte type, String email, String nom, String prenom) {
+    public Compte(String login, String password, TypeCompte type, String email, String nom, String prenom) {
         this.login = login;
         this.password = password;
         this.type = type;

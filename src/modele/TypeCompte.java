@@ -1,7 +1,7 @@
 
 package modele;
 
-public enum TypeComte {
+public enum TypeCompte {
     Client,
     Responsable,
     Admin;

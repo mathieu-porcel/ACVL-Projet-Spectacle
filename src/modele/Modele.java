@@ -54,7 +54,7 @@ public class Modele implements Serializable {
             spectacles = new HashMap<>();
             categories = new HashMap<>();
             salle = new Salle();
-            comptes.put("admin", new Compte("admin", "admin", TypeComte.Admin, null, "Admin", "Admin"));
+            comptes.put("admin", new Compte("admin", "admin", TypeCompte.Admin, null, "Admin", "Admin"));
         }
     }
 
@@ -78,7 +78,7 @@ public class Modele implements Serializable {
         return id - 1;
     }
 
-    public Compte addCompte(String login, String password, TypeComte type, String email, String nom, String prenom) {
+    public Compte addCompte(String login, String password, TypeCompte type, String email, String nom, String prenom) {
         if (comptes.containsKey(login)) {
             return null;
         } else {
