@@ -15,6 +15,7 @@ import modele.Spectacle;
 import modele.TypeComte;
 import modele.Zone;
 import vue.InterfaceGraphique;
+import vue.VueAchats;
 import vue.VueActionsAdmin;
 import vue.VueActionsClient;
 import vue.VueActionsNonConnecte;
@@ -26,6 +27,7 @@ import vue.VueEditTarifs;
 import vue.VueGestionComptes;
 import vue.VueGestionSpecacles;
 import vue.VueRepresentations;
+import vue.VueReservations;
 
 public class Controleur {
 
@@ -221,6 +223,36 @@ public class Controleur {
             occupe.addAll(representation.getPlacesReserver());
             InterfaceGraphique.getInstance().setVuePrincipale(new VueChoixPlaces(representation, occupe, isAchat));
         }
+    }
+
+    public void listeAchats() {
+        if (verifieTypeCompte(TypeComte.Client)) {
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueAchats(currentUser.achats));
+        }
+    }
+
+    public void listeReservations() {
+        if (verifieTypeCompte(TypeComte.Client)) {
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueReservations(currentUser.getReservations()));
+        }
+    }
+
+    public float getPrix(Reservation reservation) {
+        float prix = 0f;
+        for (Place place : reservation.places) {
+            // TODO: pointer vers categorie dans place ?
+            for (Zone zone : modele.salle.zones.values()) {
+                for (int rang = 0; rang < zone.places.size(); rang++) {
+                    for (Place p : zone.places.get(rang)) {
+                        if (p.equals(place)) {
+                            prix += zone.categorie.tarif;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return prix;
     }
 
     // Responsable

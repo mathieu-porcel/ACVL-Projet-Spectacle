@@ -34,5 +34,4 @@ public class Reservation implements Serializable {
         representation.libere(this);
         compte.libere(this);
     }
-    
 }
