@@ -1,10 +1,12 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.function.Supplier;
 
@@ -68,6 +70,43 @@ public abstract class AbstractVuePrincipale extends JPanel {
         JLabel label = new JLabel(texte);
         label.setFont(new Font(label.getFont().getName(), label.getFont().getStyle(), 16));
         addComposantGraphique(label);
+    }
+
+    protected Supplier<String> addChampDate() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        // Jours
+        String[] jours = new String[31];
+        for (int i = 0; i < jours.length; i++) {
+            jours[i] = (i + 1) + "";
+        }
+        JComboBox<String> jour = new JComboBox<>(jours);
+        panel.add(jour);
+
+        // Mois
+        JComboBox<String> mois = new JComboBox<>(
+                new String[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" });
+        panel.add(mois);
+
+        // Annees
+        String[] annes = new String[10];
+        for (int i = 0; i < annes.length; i++) {
+            annes[i] = (Calendar.getInstance().get(Calendar.YEAR) + i) + "";
+        }
+        JComboBox<String> annee = new JComboBox<>(annes);
+        panel.add(annee);
+
+        // Heures
+        String[] heures = new String[24];
+        for (int i = 0; i < heures.length; i++) {
+            heures[i] = i + "H";
+        }
+        JComboBox<String> heure = new JComboBox<>(heures);
+        panel.add(heure);
+
+        addComposantGraphique(panel);
+        return () -> (jour.getSelectedItem() + "/" + (mois.getSelectedIndex() + 1) + "/" + annee.getSelectedItem() + " " + heure.getSelectedIndex());
     }
 
     protected Supplier<?> addListe(Collection<?> liste) {

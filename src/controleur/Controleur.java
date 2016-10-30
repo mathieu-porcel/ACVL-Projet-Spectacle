@@ -3,8 +3,6 @@ package controleur;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import modele.Categorie;
 import modele.Compte;
@@ -21,6 +19,7 @@ import vue.VueActionsAdmin;
 import vue.VueActionsClient;
 import vue.VueActionsNonConnecte;
 import vue.VueActionsResponsable;
+import vue.VueConnexion;
 import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
@@ -65,45 +64,42 @@ public class Controleur {
 
     private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
         for (Place place : places) {
-            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place) || representation.getPlacesAcheter().contains(place)) {
+            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place)
+                    || representation.getPlacesAcheter().contains(place)) {
                 return false;
             }
         }
         return true;
     }
-    
-    private Date stringToDate(String date){
+
+    private Date stringToDate(String date) {
         String[] jour = date.split("/");
-        if (jour.length != 3){
+        if (jour.length != 3) {
             return null;
         }
         try {
-            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1])-1, Integer.valueOf(jour[0])).getTime();
-        } catch (NumberFormatException e){
+            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1]) - 1, Integer.valueOf(jour[0])).getTime();
+        } catch (NumberFormatException e) {
             return null;
         }
     }
-    
-    private Date stringToDateWithHour(String date){
+
+    private Date stringToDateWithHour(String date) {
         String[] split = date.split(" ");
-        if (split.length != 2){
+        if (split.length != 2) {
             return null;
         }
         String[] jour = split[0].split("/");
-        if (jour.length != 3){
+        if (jour.length != 3) {
             return null;
         }
-        String[] heur = split[1].split(":");
-        if (heur.length != 2){
-            return null;
-        }
+        String heure = split[1];
         try {
-            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1])-1, Integer.valueOf(jour[0]), Integer.valueOf(heur[0]), Integer.valueOf(heur[1])).getTime();
-        } catch (NumberFormatException e){
+            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1]) - 1, Integer.valueOf(jour[0]), Integer.valueOf(heure), 0).getTime();
+        } catch (NumberFormatException e) {
             return null;
         }
     }
-    
 
     public void saveModele() {
         modele.save();
@@ -111,7 +107,7 @@ public class Controleur {
 
     private void defaultNonConnecte() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte());
-        InterfaceGraphique.getInstance().setVuePrincipale(null);
+        InterfaceGraphique.getInstance().setVuePrincipale(new VueConnexion());
     }
 
     private void defaultClient() {
@@ -165,7 +161,7 @@ public class Controleur {
                     defaultClient();
                 } else if (currentUser.type == TypeComte.Admin) {
                     modele.addCompte(login, password, TypeComte.Responsable, email, nom, prenom);
-                    defaultAdmin();
+                    gestionCompte();
                 }
             }
         }
@@ -191,8 +187,8 @@ public class Controleur {
                 new Reservation(currentUser, places, representation);
                 defaultClient();
             } catch (ReservationImpossible ex) {
-                //Reservation impossible
-                //CurrenteDate + h >= dateResa
+                // Reservation impossible
+                // CurrenteDate + h >= dateResa
             }
         }
     }
@@ -229,7 +225,7 @@ public class Controleur {
     public void addRepresentation(Spectacle spectacle, String date) {
         if (verifieTypeCompte(TypeComte.Responsable) && verifieNotNull(spectacle, date)) {
             Date d = stringToDateWithHour(date);
-            if (d!=null){
+            if (d != null) {
                 spectacle.addRepresentation(d, modele.salle);
                 gestionSpectacles();
             }

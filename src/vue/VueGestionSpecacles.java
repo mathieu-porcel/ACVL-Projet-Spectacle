@@ -2,7 +2,6 @@ package vue;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.function.Supplier;
 
 import controleur.Controleur;
@@ -22,24 +21,22 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
         newLigne();
         for (Spectacle spectacle : spectacles) {
             addTexte("");
+            addTexte("n°" + spectacle.numero + ":");
             addTexte(spectacle.nom);
-            addTexte("(nï¿½" + spectacle.numero + ")");
             newLigne();
-            
-            //TODO amÃ©liorÃ© grphiquemment
-            addTexte("Nouvelle representation : Date(jj/mm/aaaa hh:mm)");
-            Supplier<String> date = addChampTexte();
-            newLigne();
+
+            addTexte("");
+            addTexte("");
+            Supplier<String> date = addChampDate();
             addBouton("Nouvelle representation", () -> Controleur.getInstance().addRepresentation(spectacle, date.get()));
             newLigne();
 
             for (Representation representation : spectacle.representations) {
                 addTexte("");
                 addTexte("");
-                addTexte("Representation");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
-                addTexte("(" + dateFormat.format(representation.date) + "H)");
-                addTexte(representation.getPlacesReserver().size() + " places reservee et "+representation.getPlacesAcheter().size()+" achetees");
+                addTexte("Representation à " + dateFormat.format(representation.date) + "H");
+                addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
                 newLigne();
             }
         }
