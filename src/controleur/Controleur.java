@@ -3,6 +3,8 @@ package controleur;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import modele.Categorie;
 import modele.Compte;
@@ -10,6 +12,7 @@ import modele.Modele;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
+import modele.ReservationImpossible;
 import modele.Spectacle;
 import modele.TypeComte;
 import modele.Zone;
@@ -184,8 +187,13 @@ public class Controleur {
     public void reservePlace(Representation representation, ArrayList<Place> places) {
         if (verifieTypeCompte(TypeComte.Client) && verifieNotNull(representation, places) && places.size() >= 1
                 && verifiePlaceDisponible(representation, places)) {
-            new Reservation(currentUser, places, representation);
-            defaultClient();
+            try {
+                new Reservation(currentUser, places, representation);
+                defaultClient();
+            } catch (ReservationImpossible ex) {
+                //Reservation impossible
+                //CurrenteDate + h >= dateResa
+            }
         }
     }
 

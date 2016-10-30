@@ -40,7 +40,7 @@ public class Representation implements Serializable {
         dossiers.add(dossier);
     }
     
-    private boolean isEndReservation(){
+    public boolean isEndReservation(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.HOUR_OF_DAY, 1);
@@ -50,9 +50,7 @@ public class Representation implements Serializable {
     public ArrayList<Reservation> getReservations(){
         if (isEndReservation() && !reservations.isEmpty()){
             for (Reservation r : reservations){
-                for (Place p : r.places){
-                    r.libere(p);
-                }
+                r.libereAll();
             }
             reservations.clear();
         }

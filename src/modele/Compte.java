@@ -14,7 +14,7 @@ public class Compte implements Serializable {
     public String nom;
     public String prenom;
 
-    public ArrayList<Reservation> reservations; 
+    private ArrayList<Reservation> reservations; 
     public ArrayList<Dossier> achats;
     
     public Compte(String login, String password, TypeComte type, String email, String nom, String prenom) {
@@ -24,6 +24,19 @@ public class Compte implements Serializable {
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
+    }
+    
+    public ArrayList<Reservation> getReservations(){
+        int i = 0;
+        while (i<reservations.size()){
+            if (reservations.get(i).representation.isEndReservation()){
+                reservations.get(i).libereAll();
+                reservations.remove(i);
+            } else {
+                i++;
+            }
+        }
+        return reservations;
     }
     
     public void reserve(Reservation reservation){
