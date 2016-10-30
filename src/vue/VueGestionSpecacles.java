@@ -11,7 +11,7 @@ import modele.Spectacle;
 @SuppressWarnings("serial")
 public class VueGestionSpecacles extends AbstractVuePrincipale {
     public VueGestionSpecacles(Collection<Spectacle> spectacles) {
-        addTitre("Nouveau spectacle:");
+        addTitre("Nouveau spectacle");
         addTexte("Nom");
         Supplier<String> nomSepctacle = addChampTexte();
         addBouton("Creer", () -> Controleur.getInstance().addSpectacle(nomSepctacle.get()));
