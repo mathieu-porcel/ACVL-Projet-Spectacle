@@ -24,6 +24,9 @@ public class Compte implements Serializable {
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
+        
+        reservations = new ArrayList();
+        achats = new ArrayList();
     }
     
     public ArrayList<Reservation> getReservations(){
