@@ -15,8 +15,8 @@ public class VueRepresentations extends AbstractVuePrincipale {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yy HH");
                 addTexte(dateFormat.format(representation.date) + "H");
                 // TODO controleur
-                addBouton("Acheter", () -> System.out.println("Achat: " + representation));
-                addBouton("Reserver", () -> System.out.println("Reservation: " + representation));
+                addBouton("Acheter", () -> {});
+                addBouton("Reserver", () -> {});
                 newLigne();
             }
         }
