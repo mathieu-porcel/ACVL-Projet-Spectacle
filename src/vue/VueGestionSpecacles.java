@@ -37,6 +37,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
                 addTexte("Representation à " + dateFormat.format(representation.date) + "H");
                 addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
+                addBouton("Annuler", () -> {/* TODO, ne pas afficher si la representation a deja eu lieu */});
                 newLigne();
             }
         }
