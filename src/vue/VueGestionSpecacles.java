@@ -39,7 +39,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("Representation a " + (representation.isAnnuler ? "(annulee) " : "") + dateFormat.format(representation.date) + "H");
                 addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
                 if (new Date().getTime() <= representation.date.getTime() && !representation.isAnnuler) {
-                    addBouton("Annuler", () -> Controleur.getInstance().annullerRepresentation(representation));
+                    addBouton("Annuler", () -> Controleur.getInstance().annulerRepresentation(representation));
                 }
                 newLigne();
             }

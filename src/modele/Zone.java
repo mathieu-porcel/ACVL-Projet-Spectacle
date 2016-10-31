@@ -23,7 +23,7 @@ public class Zone implements Serializable {
     }
 
     public void addNumero(int rang) {
-        places.get(rang).add(new Place(rang, numero));
+        places.get(rang).add(new Place(this, rang, numero));
     }
     
     public ArrayList<Place> getPlace(){

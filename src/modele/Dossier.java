@@ -28,4 +28,12 @@ public class Dossier implements Serializable {
         }
         return placesRet;
     }
+    
+    public float getPrix(){
+        float prix = 0;
+        for (AchatPlace p : places){
+            prix += p.getPrix();
+        }
+        return prix;
+    }
 }

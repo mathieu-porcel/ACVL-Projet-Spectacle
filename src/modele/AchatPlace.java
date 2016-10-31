@@ -16,4 +16,8 @@ public class AchatPlace implements Serializable {
         this.place = place;
         date = new Date();
     }
+    
+    public float getPrix(){
+        return place.zone.categorie.tarif;
+    }
 }

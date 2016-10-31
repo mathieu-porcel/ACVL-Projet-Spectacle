@@ -34,4 +34,12 @@ public class Reservation implements Serializable {
         representation.libere(this);
         compte.libere(this);
     }
+    
+    public float getPrix(){
+        float prix = 0;
+        for (Place p : places){
+            prix += p.zone.categorie.tarif;
+        }
+        return prix;
+    }
 }
