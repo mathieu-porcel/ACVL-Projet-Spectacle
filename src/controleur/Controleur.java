@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import modele.Categorie;
 import modele.Compte;
+import modele.Dossier;
 import modele.Modele;
 import modele.Place;
 import modele.Representation;
@@ -26,6 +27,7 @@ import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
 import vue.VueGestionSpecacles;
+import vue.VueRecutAchat;
 import vue.VueRepresentations;
 import vue.VueReservations;
 
@@ -245,6 +247,12 @@ public class Controleur {
     public void listeReservations() {
         if (verifieTypeCompte(TypeCompte.Client)) {
             InterfaceGraphique.getInstance().setVuePrincipale(new VueReservations(currentUser.getReservations()));
+        }
+    }
+    
+    public void voirRecut(Dossier dossier){
+        if (dossier!=null && verifieTypeCompte(TypeCompte.Client) && currentUser==dossier.compte){
+                InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(dossier));
         }
     }
 

@@ -18,7 +18,7 @@ public class VueRepresentations extends AbstractVuePrincipale {
             for (Representation representation : spectacle.representations) {
                 if (date.getTime()<=representation.date.getTime() && !representation.isAnnuler){
                     addTexte("\t");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yy HH");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
                     addTexte(dateFormat.format(representation.date) + "H");
                     addBouton("Acheter", () -> Controleur.getInstance().choixPlaces(representation, true));
                     if (!representation.isEndReservation()){
