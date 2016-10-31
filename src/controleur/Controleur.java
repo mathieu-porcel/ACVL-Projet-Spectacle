@@ -27,6 +27,7 @@ import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
 import vue.VueGestionSpecacles;
+import vue.VuePreAchat;
 import vue.VueRecutAchat;
 import vue.VueRepresentations;
 import vue.VueReservations;
@@ -209,8 +210,8 @@ public class Controleur {
     public void achatDirect(Representation representation, ArrayList<Place> places) {
         if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(places) && places.size() >= 1 && verifiePlaceDisponible(representation, places)
                 && new Date().getTime() <= representation.date.getTime()) {
-            modele.createDossier(currentUser, places, representation);
-            defaultClient();
+            Dossier d = modele.createDossier(currentUser, places, representation);
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
         }
     }
     
@@ -219,8 +220,8 @@ public class Controleur {
             ArrayList<Place> places = (ArrayList<Place>)reservation.places.clone();
             Representation representation = reservation.representation;
             reservation.libereAll();
-            modele.createDossier(currentUser, places, representation);
-            defaultClient();
+            Dossier d = modele.createDossier(currentUser, places, representation);
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
         }
     }
 
@@ -256,6 +257,26 @@ public class Controleur {
         }
     }
 
+    public void preAchat(Representation representation, ArrayList<Place> places){
+        if (verifieNotNull(representation, places) && places.size() > 1){
+            preAchat(representation, places, null);
+        }
+    }
+    
+    public void preAchat(Reservation reservation){
+        if (verifieNotNull(reservation) && reservation.compte==currentUser){
+            ArrayList<Place> places = reservation.places;
+            Representation representation = reservation.representation;
+            preAchat(representation, places, reservation);
+        }
+    }
+    
+    private void preAchat(Representation representation, ArrayList<Place> places, Reservation reservation){
+        if (verifieTypeCompte(TypeCompte.Client)){
+            InterfaceGraphique.getInstance().setVuePrincipale(new VuePreAchat(representation, places, reservation));
+        }
+    }
+    
     // Responsable
 
     public void gestionSpectacles() {

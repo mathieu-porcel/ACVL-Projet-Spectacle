@@ -39,7 +39,7 @@ public class VueChoixPlaces extends AbstractVuePrincipale {
                 i++;
             }
             if (isAchat){
-                Controleur.getInstance().achatDirect(representation, val);
+                Controleur.getInstance().preAchat(representation, val);
             } else {
                 Controleur.getInstance().reservePlace(representation, val);                
             }

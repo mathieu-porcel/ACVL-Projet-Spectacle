@@ -14,7 +14,7 @@ public class VueReservations extends AbstractVuePrincipale {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
             addTexte(reservation.representation.spectacle.nom + " a " + dateFormat.format(reservation.representation.date) + "H");
             addTexte("(" + reservation.getPrix() + "�)");
-            addBouton("Acheter", () -> Controleur.getInstance().achatReservation(reservation));
+            addBouton("Acheter", () -> Controleur.getInstance().preAchat(reservation));
             addBouton("Annuler", () -> Controleur.getInstance().annuleResevation(reservation));
             newLigne();
         }

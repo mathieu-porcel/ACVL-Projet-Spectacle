@@ -14,11 +14,11 @@ public class VueRecutAchat extends AbstractVuePrincipale {
         newLigne();
         addTexte("Dossier n°"+dossier.numero);
         newLigne();
-        addTexte("Place achtée : ");
+        addTexte("Place achetée : ");
         newLigne();
         for (AchatPlace p : dossier.places){
             addTexte("");
-            addTexte("Place de la zone "+p.place.zone.numero+", rang "+p.place.rang+", numero "+p.place.numero+", au tarif : "+p.getPrix()+" (n°"+p.numero+")");
+            addTexte("Place de la zone "+p.place.zone.numero+", rang "+p.place.rang+", numero "+p.place.numero+", au tarif : "+p.getPrix()+"€ (n°"+p.numero+")");
             newLigne();
         }
         addTexte("Prix total : "+dossier.getPrix()+"€");
