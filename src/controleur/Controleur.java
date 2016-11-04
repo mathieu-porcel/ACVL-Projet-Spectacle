@@ -1,5 +1,7 @@
 package controleur;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -374,6 +376,16 @@ public class Controleur {
             } else if (verifieTypeCompte(TypeCompte.Responsable)) {
                 defaultResponsable();
             }
+        }
+    }
+    
+    public void archiver(){
+        if (verifieTypeCompte(TypeCompte.Admin)){
+            DateFormat format = new SimpleDateFormat("dd_MM_yy_HH_mm_ss");
+            modele.save("archive/"+format.format(new Date())+".db");
+            modele.delete();
+            modele = new Modele();
+            deconnection();
         }
     }
 }

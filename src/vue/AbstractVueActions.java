@@ -26,7 +26,7 @@ public abstract class AbstractVueActions extends JPanel {
             txt += " (admin)";
         }
         add(new JLabel(txt), BorderLayout.SOUTH);
-
+        
         panel = new JPanel();
         panel.setLayout(new FlowLayout());
         add(panel, BorderLayout.CENTER);

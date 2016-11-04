@@ -58,6 +58,10 @@ public class Modele implements Serializable {
         }
     }
 
+    public void delete(){
+        new File(defaultSave).delete();
+    }
+    
     public void save() {
         save(defaultSave);
     }
@@ -70,7 +74,6 @@ public class Modele implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private int getFreeId() {
