@@ -8,6 +8,7 @@ import modele.Place;
 import modele.Representation;
 import modele.Reservation;
 
+@SuppressWarnings("serial")
 public class VuePreAchat extends AbstractVuePrincipale {
     public VuePreAchat(Representation representation, ArrayList<Place> places, Reservation reservation){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy à HH");

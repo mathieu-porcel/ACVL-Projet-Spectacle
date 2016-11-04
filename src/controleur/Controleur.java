@@ -1,5 +1,6 @@
 package controleur;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ import vue.VueEditSalle;
 import vue.VueEditTarifs;
 import vue.VueGestionComptes;
 import vue.VueGestionSpecacles;
+import vue.VueListeArchives;
 import vue.VuePreAchat;
 import vue.VueRecutAchat;
 import vue.VueRepresentations;
 import vue.VueReservations;
+import vue.VueStatistiques;
 
 public class Controleur {
 
@@ -203,7 +206,7 @@ public class Controleur {
     }
 
     public void annuleResevation(Reservation reservation) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte==currentUser) {
+        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte == currentUser) {
             reservation.libereAll();
             defaultClient();
         }
@@ -216,10 +219,11 @@ public class Controleur {
             InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
         }
     }
-    
-    public void achatReservation(Reservation reservation){
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte==currentUser && new Date().getTime()<=reservation.representation.date.getTime() && reservation.representation.getReservations().contains(reservation)){
-            ArrayList<Place> places = (ArrayList<Place>)reservation.places.clone();
+
+    public void achatReservation(Reservation reservation) {
+        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte == currentUser
+                && new Date().getTime() <= reservation.representation.date.getTime() && reservation.representation.getReservations().contains(reservation)) {
+            ArrayList<Place> places = (ArrayList<Place>) reservation.places.clone();
             Representation representation = reservation.representation;
             reservation.libereAll();
             Dossier d = modele.createDossier(currentUser, places, representation);
@@ -252,33 +256,33 @@ public class Controleur {
             InterfaceGraphique.getInstance().setVuePrincipale(new VueReservations(currentUser.getReservations()));
         }
     }
-    
-    public void voirRecut(Dossier dossier){
-        if (dossier!=null && verifieTypeCompte(TypeCompte.Client) && currentUser==dossier.compte){
-                InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(dossier));
+
+    public void voirRecut(Dossier dossier) {
+        if (dossier != null && verifieTypeCompte(TypeCompte.Client) && currentUser == dossier.compte) {
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(dossier));
         }
     }
 
-    public void preAchat(Representation representation, ArrayList<Place> places){
-        if (verifieNotNull(representation, places) && places.size() > 1){
+    public void preAchat(Representation representation, ArrayList<Place> places) {
+        if (verifieNotNull(representation, places) && places.size() > 1) {
             preAchat(representation, places, null);
         }
     }
-    
-    public void preAchat(Reservation reservation){
-        if (verifieNotNull(reservation) && reservation.compte==currentUser){
+
+    public void preAchat(Reservation reservation) {
+        if (verifieNotNull(reservation) && reservation.compte == currentUser) {
             ArrayList<Place> places = reservation.places;
             Representation representation = reservation.representation;
             preAchat(representation, places, reservation);
         }
     }
-    
-    private void preAchat(Representation representation, ArrayList<Place> places, Reservation reservation){
-        if (verifieTypeCompte(TypeCompte.Client)){
+
+    private void preAchat(Representation representation, ArrayList<Place> places, Reservation reservation) {
+        if (verifieTypeCompte(TypeCompte.Client)) {
             InterfaceGraphique.getInstance().setVuePrincipale(new VuePreAchat(representation, places, reservation));
         }
     }
-    
+
     // Responsable
 
     public void gestionSpectacles() {
@@ -316,6 +320,30 @@ public class Controleur {
     public void editSalle() {
         if (verifieTypeCompte(TypeCompte.Admin)) {
             InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(modele.salle.zones.values(), modele.categories.values()));
+        }
+    }
+
+    public void showStatistiques() {
+        if (verifieTypeCompte(TypeCompte.Admin)) {
+            File file = new File("archive");
+            ArrayList<String> archives = new ArrayList<>();
+            archives.add("courant");
+            for (String f : file.list()) {
+                archives.add(f);
+            }
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueListeArchives(archives));
+        }
+    }
+
+    public void showStatistiques(String archive) {
+        if (verifieTypeCompte(TypeCompte.Admin)) {
+            Modele modele;
+            if (archive.equals("courant")) {
+                modele = this.modele;
+            } else {
+                modele = new Modele("archive/" + archive);
+            }
+            InterfaceGraphique.getInstance().setVuePrincipale(new VueStatistiques(modele));
         }
     }
 
@@ -378,11 +406,11 @@ public class Controleur {
             }
         }
     }
-    
-    public void archiver(){
-        if (verifieTypeCompte(TypeCompte.Admin)){
+
+    public void archiver() {
+        if (verifieTypeCompte(TypeCompte.Admin)) {
             DateFormat format = new SimpleDateFormat("dd_MM_yy_HH_mm_ss");
-            modele.save("archive/"+format.format(new Date())+".db");
+            modele.save("archive/" + format.format(new Date()) + ".db");
             modele.delete();
             modele = new Modele();
             deconnection();
