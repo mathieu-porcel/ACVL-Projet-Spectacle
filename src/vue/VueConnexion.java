@@ -3,6 +3,7 @@ package vue;
 import java.util.function.Supplier;
 
 import controleur.Controleur;
+import controleur.ControleurCompte;
 
 @SuppressWarnings("serial")
 public class VueConnexion extends AbstractVuePrincipale {
@@ -16,6 +17,6 @@ public class VueConnexion extends AbstractVuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Connexion", () -> Controleur.getInstance().connection(login.get(), motDePasse.get()));
+        addBouton("Connexion", () -> ControleurCompte.getInstance().connection(login.get(), motDePasse.get()));
     }
 }

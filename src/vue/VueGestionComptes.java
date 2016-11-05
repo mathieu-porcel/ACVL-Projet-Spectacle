@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.ControleurCompte;
 import java.util.List;
 
 import modele.Compte;
@@ -19,7 +20,7 @@ public class VueGestionComptes extends AbstractVuePrincipale {
             addTexte(compte.nom);
             addTexte(compte.prenom);
             addTexte("(" + compte.login + ")");
-            addBouton("Usurper", () -> controleur.Controleur.getInstance().usurper(compte));
+            addBouton("Usurper", () -> ControleurCompte.getInstance().usurper(compte));
             newLigne();
         }
     }

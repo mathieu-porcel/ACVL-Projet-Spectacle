@@ -3,7 +3,7 @@ package vue;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import controleur.Controleur;
+import controleur.ControleurSalle;
 import modele.Categorie;
 
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public class VueEditTarifs extends AbstractVuePrincipale {
         newLigne();
         addTexte("");
         addTexte("");
-        addBouton("Creer", () -> Controleur.getInstance().addCategorie(nom.get(), tarif.get()));
+        addBouton("Creer", () -> ControleurSalle.getInstance().addCategorie(nom.get(), tarif.get()));
         newLigne();
 
         addTitre("Liste des categories:");
@@ -31,7 +31,7 @@ public class VueEditTarifs extends AbstractVuePrincipale {
         for (Categorie categorie : categories) {
             addTexte("");
             addTexte(categorie.nom);
-            addTexte("(" + categorie.tarif + "€)");
+            addTexte("(" + categorie.tarif + "ï¿½)");
             newLigne();
         }
     }

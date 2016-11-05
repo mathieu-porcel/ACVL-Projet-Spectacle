@@ -2,7 +2,7 @@ package vue;
 
 import java.util.function.Supplier;
 
-import controleur.Controleur;
+import controleur.ControleurCompte;
 
 @SuppressWarnings("serial")
 public class VueInscription extends AbstractVuePrincipale {
@@ -28,6 +28,6 @@ public class VueInscription extends AbstractVuePrincipale {
         newLigne();
 
         addTexte("");
-        addBouton("Inscription", () -> Controleur.getInstance().inscription(login.get(), nom.get(), prenom.get(), email.get(), motDePasse.get()));
+        addBouton("Inscription", () -> ControleurCompte.getInstance().inscription(login.get(), nom.get(), prenom.get(), email.get(), motDePasse.get()));
     }
 }

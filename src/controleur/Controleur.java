@@ -7,35 +7,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import modele.Categorie;
 import modele.Compte;
-import modele.Dossier;
 import modele.Modele;
-import modele.Place;
-import modele.Representation;
-import modele.Reservation;
-import modele.ReservationImpossible;
-import modele.Spectacle;
 import modele.TypeCompte;
-import modele.Zone;
 import vue.InterfaceGraphique;
-import vue.VueAchats;
 import vue.VueActionsAdmin;
 import vue.VueActionsClient;
 import vue.VueActionsNonConnecte;
 import vue.VueActionsResponsable;
-import vue.VueChoixPlaces;
 import vue.VueConnexion;
-import vue.VueEditSalle;
-import vue.VueEditTarifs;
-import vue.VueGestionComptes;
-import vue.VueGestionSpecacles;
-import vue.VueListeArchives;
-import vue.VuePreAchat;
-import vue.VueRecutAchat;
-import vue.VueRepresentations;
-import vue.VueReservations;
-import vue.VueStatistiques;
 
 public class Controleur {
 
@@ -74,16 +54,6 @@ public class Controleur {
         return type == currentUser.type;
     }
 
-    public boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
-        for (Place place : places) {
-            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place)
-                    || representation.getPlacesAcheter().contains(place)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public Date stringToDateWithHour(String date) {
         String[] split = date.split(" ");
         if (split.length != 2) {
@@ -101,10 +71,6 @@ public class Controleur {
         }
     }
 
-    public void saveModele() {
-        modele.save();
-    }
-
     public void defaultNonConnecte() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte(currentUser, isAdmin));
         InterfaceGraphique.getInstance().setVuePrincipale(new VueConnexion());
@@ -112,211 +78,17 @@ public class Controleur {
 
     public void defaultClient() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsClient(currentUser, isAdmin));
-        listeRepresentations();
+        ControleurSpectacle.getInstance().listeRepresentations();
     }
 
     public void defaultResponsable() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsResponsable(currentUser, isAdmin));
-        gestionSpectacles();
+        ControleurSpectacle.getInstance().gestionSpectacles();
     }
 
     public void defaultAdmin() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin(currentUser, isAdmin));
-        gestionCompte();
+        ControleurCompte.getInstance().gestionCompte();
     }
 
-    // Rien
-
-    public void connection(String login, String password) {
-        if (verifieNotNull(login, password)) {
-            Compte user = modele.getCompte(login);
-            if (user != null && user.password.equals(password)) {
-                currentUser = user;
-
-                if (null != user.type)
-                    switch (user.type) {
-                        case Client:
-                            defaultClient();
-                            break;
-                        case Responsable:
-                            defaultResponsable();
-                            break;
-                        case Admin:
-                            isAdmin = true;
-                            defaultAdmin();
-                            break;
-                        default:
-                            break;
-                    }
-            }
-        }
-    }
-
-    public void inscription(String login, String nom, String prenom, String email, String password) {
-        if (verifieNotNull(login, nom, prenom, password)) {
-            if (!modele.comptes.containsKey(login)) {
-                if (currentUser == null) {
-                    Compte user = modele.addCompte(login, password, TypeCompte.Client, email, nom, prenom);
-                    currentUser = user;
-                    defaultClient();
-                } else if (currentUser.type == TypeCompte.Admin) {
-                    modele.addCompte(login, password, TypeCompte.Responsable, email, nom, prenom);
-                    gestionCompte();
-                }
-            }
-        }
-    }
-
-    public void deconnection() {
-        if (isAdmin && currentUser.type != TypeCompte.Admin) {
-            currentUser = modele.getCompte("admin");
-            defaultAdmin();
-        } else {
-            isAdmin = false;
-            currentUser = null;
-            defaultNonConnecte();
-        }
-    }
-
-
-    public void listeRepresentations() {
-        if (verifieTypeCompte(TypeCompte.Client)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueRepresentations(modele.spectacles.values()));
-        }
-    }
-
-
-    // Responsable
-
-    public void gestionSpectacles() {
-        if (verifieTypeCompte(TypeCompte.Responsable)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionSpecacles(modele.spectacles.values()));
-        }
-    }
-
-    public void addSpectacle(String nom) {
-        if (verifieTypeCompte(TypeCompte.Responsable) && !modele.spectacles.containsKey(nom)) {
-            modele.addSpectacle(nom);
-            gestionSpectacles();
-        }
-    }
-
-    public void addRepresentation(Spectacle spectacle, String date) {
-        if (verifieTypeCompte(TypeCompte.Responsable) && verifieNotNull(spectacle, date)) {
-            Date d = stringToDateWithHour(date);
-            if (d != null /* && new Date().getTime()<=d.getTime() */) { // TODO comment for test/dev. Uncommetn for prod
-                spectacle.addRepresentation(d, modele.salle);
-                gestionSpectacles();
-            }
-        }
-    }
-
-    public void annulerRepresentation(Representation representation) {
-        if (verifieTypeCompte(TypeCompte.Responsable) && representation != null && new Date().getTime() <= representation.date.getTime()) {
-            representation.annuler();
-            gestionSpectacles();
-        }
-    }
-
-    // Admin
-
-    public void editSalle() {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueEditSalle(modele.salle.zones.values(), modele.categories.values()));
-        }
-    }
-
-    public void showStatistiques() {
-        if (verifieTypeCompte(TypeCompte.Responsable)) {
-            File file = new File("archive");
-            ArrayList<String> archives = new ArrayList<>();
-            archives.add("courant");
-            for (String f : file.list()) {
-                archives.add(f);
-            }
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueListeArchives(archives));
-        }
-    }
-
-    public void showStatistiques(String archive) {
-        if (verifieTypeCompte(TypeCompte.Responsable)) {
-            Modele modele;
-            if (archive.equals("courant")) {
-                modele = this.modele;
-            } else {
-                modele = new Modele("archive/" + archive);
-            }
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueStatistiques(modele));
-        }
-    }
-
-    public void editTarifs() {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueEditTarifs(modele.categories.values()));
-        }
-    }
-
-    public void addRang(Zone zone) {
-        if (verifieTypeCompte(TypeCompte.Admin) && zone != null) {
-            zone.addRang();
-            editSalle();
-        }
-    }
-
-    public void addNumero(Zone zone, int rang) {
-        if (verifieTypeCompte(TypeCompte.Admin) && zone != null && zone.places.size() > rang) {
-            zone.addNumero(rang);
-            editSalle();
-        }
-    }
-
-    public void addZone(Categorie categorie) {
-        if (verifieTypeCompte(TypeCompte.Admin) && categorie != null) {
-            modele.addZone(categorie);
-            editSalle();
-        }
-    }
-
-    public void addCategorie(String nom, String prix) {
-        try {
-            float tarif = Float.parseFloat(prix);
-            if (verifieTypeCompte(TypeCompte.Admin) && nom != null && tarif > 0) {
-                modele.addCategorie(nom, tarif);
-                editTarifs();
-            }
-        } catch (NumberFormatException e) {}
-    }
-
-    public void gestionCompte() {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
-            ArrayList<Compte> comptes = new ArrayList<>();
-            for (Compte c : modele.comptes.values()) {
-                if (c.type != TypeCompte.Admin) {
-                    comptes.add(c);
-                }
-            }
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueGestionComptes(comptes));
-        }
-    }
-
-    public void usurper(Compte usurpation) {
-        if (verifieTypeCompte(TypeCompte.Admin) && usurpation != null && usurpation.type != TypeCompte.Admin) {
-            currentUser = usurpation;
-            if (verifieTypeCompte(TypeCompte.Client)) {
-                defaultClient();
-            } else if (verifieTypeCompte(TypeCompte.Responsable)) {
-                defaultResponsable();
-            }
-        }
-    }
-
-    public void archiver() {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
-            DateFormat format = new SimpleDateFormat("dd_MM_yy_HH_mm_ss");
-            modele.save("archive/" + format.format(new Date()) + ".db");
-            modele.delete();
-            modele = new Modele();
-            deconnection();
-        }
-    }
 }

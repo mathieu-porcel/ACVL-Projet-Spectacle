@@ -1,14 +1,16 @@
 package vue;
 
-import controleur.Controleur;
+import controleur.ControleurCompte;
+import controleur.ControleurGestionModele;
+import controleur.ControleurSpectacle;
 import modele.Compte;
 
 @SuppressWarnings("serial")
 public class VueActionsResponsable extends AbstractVueActions {
     public VueActionsResponsable(Compte compte, boolean isAdmin) {
         super(compte, isAdmin);
-        addAction("Gestion des spectacles", () -> Controleur.getInstance().gestionSpectacles());
-        addAction("Afficher statistiques", () -> Controleur.getInstance().showStatistiques());
-        addAction("Deconnexion", () -> Controleur.getInstance().deconnection());
+        addAction("Gestion des spectacles", () -> ControleurSpectacle.getInstance().gestionSpectacles());
+        addAction("Afficher statistiques", () -> ControleurGestionModele.getInstance().showStatistiques());
+        addAction("Deconnexion", () -> ControleurCompte.getInstance().deconnection());
     }
 }

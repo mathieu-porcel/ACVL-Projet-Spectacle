@@ -3,7 +3,7 @@ package vue;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import controleur.Controleur;
+import controleur.ControleurSalle;
 import modele.Categorie;
 import modele.Zone;
 
@@ -13,27 +13,27 @@ public class VueEditSalle extends AbstractVuePrincipale {
         addTitre("Nouvelle zone:");
         addTexte("Categorie");
         Supplier<?> categorie = addListe(categories);
-        addBouton("Creer", () -> Controleur.getInstance().addZone((Categorie) categorie.get()));
+        addBouton("Creer", () -> ControleurSalle.getInstance().addZone((Categorie) categorie.get()));
         newLigne();
 
         addTitre("Liste des zones:");
         newLigne();
         for (Zone zone : zones) {
             addTexte("");
-            addTexte("Zone n°" + (zone.numero + 1) + ":");
+            addTexte("Zone nï¿½" + (zone.numero + 1) + ":");
             addTexte(zone.categorie.nom);
             newLigne();
             for (int i = 0; i < zone.places.size(); i++) {
                 int rang = i;
                 addTexte("");
                 addTexte("");
-                addTexte("Rang n°" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
-                addBouton("Ajouter place", () -> Controleur.getInstance().addNumero(zone, rang));
+                addTexte("Rang nï¿½" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
+                addBouton("Ajouter place", () -> ControleurSalle.getInstance().addNumero(zone, rang));
                 newLigne();
             }
             addTexte("");
             addTexte("");
-            addBouton("Ajouter rang", () -> Controleur.getInstance().addRang(zone));
+            addBouton("Ajouter rang", () -> ControleurSalle.getInstance().addRang(zone));
             newLigne();
         }
     }

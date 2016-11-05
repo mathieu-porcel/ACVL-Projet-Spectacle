@@ -35,6 +35,16 @@ public class ControleurReservationsAchats {
     private ControleurReservationsAchats() {
         controleur = Controleur.getInstance();
     }
+    
+    private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
+        for (Place place : places) {
+            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place)
+                    || representation.getPlacesAcheter().contains(place)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void annuleResevation(Reservation reservation) {
         if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(reservation) && reservation.compte == controleur.currentUser) {
@@ -90,7 +100,7 @@ public class ControleurReservationsAchats {
     }
 
     public void achatDirect(Representation representation, ArrayList<Place> places) {
-        if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(places) && places.size() >= 1 && controleur.verifiePlaceDisponible(representation, places) && new Date().getTime() <= representation.date.getTime()) {
+        if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(places) && places.size() >= 1 && verifiePlaceDisponible(representation, places) && new Date().getTime() <= representation.date.getTime()) {
             Dossier d = controleur.modele.createDossier(controleur.currentUser, places, representation);
             InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
         }
@@ -108,7 +118,7 @@ public class ControleurReservationsAchats {
 
     // Client
     public void reservePlace(Representation representation, ArrayList<Place> places) {
-        if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(representation, places) && places.size() >= 1 && controleur.verifiePlaceDisponible(representation, places)) {
+        if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(representation, places) && places.size() >= 1 && verifiePlaceDisponible(representation, places)) {
             try {
                 new Reservation(controleur.currentUser, places, representation);
                 controleur.defaultClient();

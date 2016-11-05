@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controleur.Controleur;
+import controleur.ControleurGestionModele;
 
 @SuppressWarnings("serial")
 public class InterfaceGraphique extends JFrame {
@@ -37,11 +37,11 @@ public class InterfaceGraphique extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        // Sauvegarde du modèle à la fermeture de l'application
+        // Sauvegarde du modï¿½le ï¿½ la fermeture de l'application
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Controleur.getInstance().saveModele();
+                ControleurGestionModele.getInstance().saveModele();
             }
         });
     }
@@ -57,7 +57,7 @@ public class InterfaceGraphique extends JFrame {
     }
 
     /**
-     * Met à jour la fenêtre en y ajoutant toutes les vues en cours
+     * Met ï¿½ jour la fenï¿½tre en y ajoutant toutes les vues en cours
      */
     private void updateVue() {
         JPanel panel = new JPanel();

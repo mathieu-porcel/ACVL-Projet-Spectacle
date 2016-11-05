@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-import controleur.Controleur;
+import controleur.ControleurSpectacle;
 import java.util.Date;
 import modele.Representation;
 import modele.Spectacle;
@@ -15,7 +15,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
         addTitre("Nouveau spectacle:");
         addTexte("Nom");
         Supplier<String> nomSepctacle = addChampTexte();
-        addBouton("Creer", () -> Controleur.getInstance().addSpectacle(nomSepctacle.get()));
+        addBouton("Creer", () -> ControleurSpectacle.getInstance().addSpectacle(nomSepctacle.get()));
         newLigne();
 
         addTitre("Liste des spectacles:");
@@ -29,7 +29,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
             addTexte("");
             addTexte("");
             Supplier<String> date = addChampDate();
-            addBouton("Nouvelle representation", () -> Controleur.getInstance().addRepresentation(spectacle, date.get()));
+            addBouton("Nouvelle representation", () -> ControleurSpectacle.getInstance().addRepresentation(spectacle, date.get()));
             newLigne();
 
             for (Representation representation : spectacle.representations) {
@@ -39,7 +39,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("Representation a " + (representation.isAnnuler ? "(annulee) " : "") + dateFormat.format(representation.date) + "H");
                 addTexte(representation.getPlacesReserver().size() + " places reservee et " + representation.getPlacesAcheter().size() + " achetees");
                 if (new Date().getTime() <= representation.date.getTime() && !representation.isAnnuler) {
-                    addBouton("Annuler", () -> Controleur.getInstance().annulerRepresentation(representation));
+                    addBouton("Annuler", () -> ControleurSpectacle.getInstance().annulerRepresentation(representation));
                 }
                 newLigne();
             }
