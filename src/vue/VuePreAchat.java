@@ -2,6 +2,7 @@
 package vue;
 
 import controleur.Controleur;
+import controleur.ControleurReservationsAchats;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import modele.Place;
@@ -28,9 +29,9 @@ public class VuePreAchat extends AbstractVuePrincipale {
         newLigne();
         addBouton("Payer", () -> {
             if (reservation==null){
-                Controleur.getInstance().achatDirect(representation, places);
+                ControleurReservationsAchats.getInstance().achatDirect(representation, places);
             } else {
-                Controleur.getInstance().achatReservation(reservation);
+                ControleurReservationsAchats.getInstance().achatReservation(reservation);
             }
         });
     }

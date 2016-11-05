@@ -5,6 +5,8 @@ public class ControleurGestionModele {
     
     private static ControleurGestionModele instance;
 
+    private Controleur controleur;
+    
     /**
      * Singleton
      */
@@ -15,5 +17,7 @@ public class ControleurGestionModele {
         return instance;
     }
     
-    private ControleurGestionModele() {}
+    private ControleurGestionModele() {
+        controleur = Controleur.getInstance();
+    }
 }

@@ -1,6 +1,6 @@
 package vue;
 
-import controleur.Controleur;
+import controleur.ControleurReservationsAchats;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -20,9 +20,9 @@ public class VueRepresentations extends AbstractVuePrincipale {
                     addTexte("\t");
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
                     addTexte(dateFormat.format(representation.date) + "H");
-                    addBouton("Acheter", () -> Controleur.getInstance().choixPlaces(representation, true));
+                    addBouton("Acheter", () -> ControleurReservationsAchats.getInstance().choixPlaces(representation, true));
                     if (!representation.isEndReservation()){
-                        addBouton("Reserver", () -> Controleur.getInstance().choixPlaces(representation, false));
+                        addBouton("Reserver", () -> ControleurReservationsAchats.getInstance().choixPlaces(representation, false));
                     }
                     newLigne();
                 }

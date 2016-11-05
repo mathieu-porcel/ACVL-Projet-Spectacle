@@ -1,7 +1,7 @@
 
 package vue;
 
-import controleur.Controleur;
+import controleur.ControleurReservationsAchats;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 import modele.Place;
@@ -39,9 +39,9 @@ public class VueChoixPlaces extends AbstractVuePrincipale {
                 i++;
             }
             if (isAchat){
-                Controleur.getInstance().preAchat(representation, val);
+                ControleurReservationsAchats.getInstance().preAchat(representation, val);
             } else {
-                Controleur.getInstance().reservePlace(representation, val);                
+                ControleurReservationsAchats.getInstance().reservePlace(representation, val);                
             }
         });
     }

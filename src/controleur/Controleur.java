@@ -41,9 +41,9 @@ public class Controleur {
 
     private static Controleur instance;
 
-    private boolean isAdmin;
-    private Modele modele;
-    private Compte currentUser;
+    public boolean isAdmin;
+    public Modele modele;
+    public Compte currentUser;
 
     /**
      * Singleton
@@ -62,7 +62,7 @@ public class Controleur {
         defaultNonConnecte();
     }
 
-    private boolean verifieNotNull(Object... valeurs) {
+    public boolean verifieNotNull(Object... valeurs) {
         int i = 0;
         while (i < valeurs.length && valeurs[i] != null && (!(valeurs[i] instanceof String) || !"".equals(valeurs[i])) ) {
             i++;
@@ -70,11 +70,11 @@ public class Controleur {
         return i == valeurs.length;
     }
 
-    private boolean verifieTypeCompte(TypeCompte type) {
+    public boolean verifieTypeCompte(TypeCompte type) {
         return type == currentUser.type;
     }
 
-    private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
+    public boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
         for (Place place : places) {
             if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place)
                     || representation.getPlacesAcheter().contains(place)) {
@@ -84,19 +84,7 @@ public class Controleur {
         return true;
     }
 
-    private Date stringToDate(String date) {
-        String[] jour = date.split("/");
-        if (jour.length != 3) {
-            return null;
-        }
-        try {
-            return new GregorianCalendar(Integer.valueOf(jour[2]), Integer.valueOf(jour[1]) - 1, Integer.valueOf(jour[0])).getTime();
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Date stringToDateWithHour(String date) {
+    public Date stringToDateWithHour(String date) {
         String[] split = date.split(" ");
         if (split.length != 2) {
             return null;
@@ -117,22 +105,22 @@ public class Controleur {
         modele.save();
     }
 
-    private void defaultNonConnecte() {
+    public void defaultNonConnecte() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsNonConnecte(currentUser, isAdmin));
         InterfaceGraphique.getInstance().setVuePrincipale(new VueConnexion());
     }
 
-    private void defaultClient() {
+    public void defaultClient() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsClient(currentUser, isAdmin));
         listeRepresentations();
     }
 
-    private void defaultResponsable() {
+    public void defaultResponsable() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsResponsable(currentUser, isAdmin));
         gestionSpectacles();
     }
 
-    private void defaultAdmin() {
+    public void defaultAdmin() {
         InterfaceGraphique.getInstance().setVueActions(new VueActionsAdmin(currentUser, isAdmin));
         gestionCompte();
     }
@@ -190,46 +178,6 @@ public class Controleur {
         }
     }
 
-    // Client
-
-    public void reservePlace(Representation representation, ArrayList<Place> places) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(representation, places) && places.size() >= 1
-                && verifiePlaceDisponible(representation, places)) {
-            try {
-                new Reservation(currentUser, places, representation);
-                defaultClient();
-            } catch (ReservationImpossible ex) {
-                // Reservation impossible
-                // CurrenteDate + h >= dateResa
-            }
-        }
-    }
-
-    public void annuleResevation(Reservation reservation) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte == currentUser) {
-            reservation.libereAll();
-            defaultClient();
-        }
-    }
-
-    public void achatDirect(Representation representation, ArrayList<Place> places) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(places) && places.size() >= 1 && verifiePlaceDisponible(representation, places)
-                && new Date().getTime() <= representation.date.getTime()) {
-            Dossier d = modele.createDossier(currentUser, places, representation);
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
-        }
-    }
-
-    public void achatReservation(Reservation reservation) {
-        if (verifieTypeCompte(TypeCompte.Client) && verifieNotNull(reservation) && reservation.compte == currentUser
-                && new Date().getTime() <= reservation.representation.date.getTime() && reservation.representation.getReservations().contains(reservation)) {
-            ArrayList<Place> places = (ArrayList<Place>) reservation.places.clone();
-            Representation representation = reservation.representation;
-            reservation.libereAll();
-            Dossier d = modele.createDossier(currentUser, places, representation);
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(d));
-        }
-    }
 
     public void listeRepresentations() {
         if (verifieTypeCompte(TypeCompte.Client)) {
@@ -237,51 +185,6 @@ public class Controleur {
         }
     }
 
-    public void choixPlaces(Representation representation, boolean isAchat) {
-        if (verifieTypeCompte(TypeCompte.Client) && representation != null) {
-            ArrayList<Place> occupe = representation.getPlacesAcheter();
-            occupe.addAll(representation.getPlacesReserver());
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueChoixPlaces(representation, occupe, isAchat));
-        }
-    }
-
-    public void listeAchats() {
-        if (verifieTypeCompte(TypeCompte.Client)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueAchats(currentUser.achats));
-        }
-    }
-
-    public void listeReservations() {
-        if (verifieTypeCompte(TypeCompte.Client)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueReservations(currentUser.getReservations()));
-        }
-    }
-
-    public void voirRecut(Dossier dossier) {
-        if (dossier != null && verifieTypeCompte(TypeCompte.Client) && currentUser == dossier.compte) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VueRecutAchat(dossier));
-        }
-    }
-
-    public void preAchat(Representation representation, ArrayList<Place> places) {
-        if (verifieNotNull(representation, places) && places.size() > 1) {
-            preAchat(representation, places, null);
-        }
-    }
-
-    public void preAchat(Reservation reservation) {
-        if (verifieNotNull(reservation) && reservation.compte == currentUser) {
-            ArrayList<Place> places = reservation.places;
-            Representation representation = reservation.representation;
-            preAchat(representation, places, reservation);
-        }
-    }
-
-    private void preAchat(Representation representation, ArrayList<Place> places, Reservation reservation) {
-        if (verifieTypeCompte(TypeCompte.Client)) {
-            InterfaceGraphique.getInstance().setVuePrincipale(new VuePreAchat(representation, places, reservation));
-        }
-    }
 
     // Responsable
 

@@ -5,6 +5,8 @@ public class ControleurSalle {
     
     private static ControleurSalle instance;
     
+    private Controleur controleur;
+    
     /**
      * Singleton
      */
@@ -15,5 +17,7 @@ public class ControleurSalle {
         return instance;
     }
     
-    private ControleurSalle() {}
+    private ControleurSalle() {
+        controleur = Controleur.getInstance();
+    }
 }

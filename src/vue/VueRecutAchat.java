@@ -2,6 +2,7 @@
 package vue;
 
 import controleur.Controleur;
+import controleur.ControleurReservationsAchats;
 import java.text.SimpleDateFormat;
 import modele.AchatPlace;
 import modele.Dossier;
@@ -26,7 +27,7 @@ public class VueRecutAchat extends AbstractVuePrincipale {
         dateFormat = new SimpleDateFormat("dd/MM/yy");
         addTexte("Payée le "+dateFormat.format(dossier.places.get(0).date)+" par "+dossier.compte.nom+" "+dossier.compte.prenom);
         newLigne();
-        addBouton("OK", () -> Controleur.getInstance().listeAchats());
+        addBouton("OK", () -> ControleurReservationsAchats.getInstance().listeAchats());
         
     }
         
