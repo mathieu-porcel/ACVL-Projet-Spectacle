@@ -64,7 +64,7 @@ public class Controleur {
 
     private boolean verifieNotNull(Object... valeurs) {
         int i = 0;
-        while (i < valeurs.length && valeurs[i] != null) {
+        while (i < valeurs.length && valeurs[i] != null && (!(valeurs[i] instanceof String) || !"".equals(valeurs[i])) ) {
             i++;
         }
         return i == valeurs.length;
