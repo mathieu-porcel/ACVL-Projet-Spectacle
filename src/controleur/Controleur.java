@@ -324,7 +324,7 @@ public class Controleur {
     }
 
     public void showStatistiques() {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
+        if (verifieTypeCompte(TypeCompte.Responsable)) {
             File file = new File("archive");
             ArrayList<String> archives = new ArrayList<>();
             archives.add("courant");
@@ -336,7 +336,7 @@ public class Controleur {
     }
 
     public void showStatistiques(String archive) {
-        if (verifieTypeCompte(TypeCompte.Admin)) {
+        if (verifieTypeCompte(TypeCompte.Responsable)) {
             Modele modele;
             if (archive.equals("courant")) {
                 modele = this.modele;
