@@ -38,7 +38,7 @@ public class ControleurReservationsAchats {
     
     private boolean verifiePlaceDisponible(Representation representation, ArrayList<Place> places) {
         for (Place place : places) {
-            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReserver().contains(place)
+            if (!representation.salle.getAllPlace().contains(place) || representation.getPlacesReservees().contains(place)
                     || representation.getPlacesAchetees().contains(place)) {
                 return false;
             }
@@ -56,7 +56,7 @@ public class ControleurReservationsAchats {
     public void choixPlaces(Representation representation, boolean isAchat) {
         if (controleur.verifieTypeCompte(TypeCompte.Client) && representation != null) {
             ArrayList<Place> occupe = representation.getPlacesAchetees();
-            occupe.addAll(representation.getPlacesReserver());
+            occupe.addAll(representation.getPlacesReservees());
             InterfaceGraphique.getInstance().setVuePrincipale(new VueChoixPlaces(representation, occupe, isAchat));
         }
     }
