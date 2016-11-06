@@ -12,7 +12,7 @@ public class VueActionsAdmin extends AbstractVueActions {
         addAction("Gestions des comptes", () -> ControleurCompte.getInstance().gestionCompte());
         addAction("Modifier les tarifs", () -> ControleurSalle.getInstance().editTarifs());
         addAction("Modifier la salle", () -> ControleurSalle.getInstance().editSalle());
-        addAction("Archiver et vider la base de donnee", () -> ControleurGestionModele.getInstance().archiver());
+        addAction("Archiver et vider la base de données", () -> ControleurGestionModele.getInstance().archiver());
         addAction("Déconnexion", () -> ControleurCompte.getInstance().deconnection());
     }
 }
