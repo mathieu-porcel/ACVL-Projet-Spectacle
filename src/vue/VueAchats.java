@@ -12,7 +12,7 @@ public class VueAchats extends AbstractVuePrincipale {
         for (Dossier dossier : dossiers) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
             addTexte(dossier.representation.spectacle.nom + " à " + dateFormat.format(dossier.representation.date) + "H");
-            addBouton("Voir le reçut", () -> ControleurReservationsAchats.getInstance().voirRecut(dossier));
+            addBouton("Voir le reçu", () -> ControleurReservationsAchats.getInstance().voirRecut(dossier));
             newLigne();
         }
     }

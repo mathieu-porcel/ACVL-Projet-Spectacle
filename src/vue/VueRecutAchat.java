@@ -11,7 +11,7 @@ import modele.Dossier;
 public class VueRecutAchat extends AbstractVuePrincipale {
     public VueRecutAchat(Dossier dossier) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
-        addTexte("Reçut pour le spectacle " + dossier.representation.spectacle.nom + " n°" + dossier.representation.spectacle.numero + " du "
+        addTexte("Reçu pour le spectacle " + dossier.representation.spectacle.nom + " n°" + dossier.representation.spectacle.numero + " du "
                 + dateFormat.format(dossier.representation.date) + "H");
         newLigne();
         addTexte("Dossier n°" + dossier.numero);
