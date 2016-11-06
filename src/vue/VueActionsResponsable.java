@@ -11,6 +11,6 @@ public class VueActionsResponsable extends AbstractVueActions {
         super(compte, isAdmin);
         addAction("Gestion des spectacles", () -> ControleurSpectacle.getInstance().gestionSpectacles());
         addAction("Afficher statistiques", () -> ControleurGestionModele.getInstance().showStatistiques());
-        addAction("Deconnexion", () -> ControleurCompte.getInstance().deconnection());
+        addAction("Déconnexion", () -> ControleurCompte.getInstance().deconnection());
     }
 }

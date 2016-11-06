@@ -9,11 +9,10 @@ import modele.Dossier;
 @SuppressWarnings("serial")
 public class VueAchats extends AbstractVuePrincipale {
     public VueAchats(Collection<Dossier> dossiers) {
-        // TODO: controleur + prix + numero dossier + un ticket par place
         for (Dossier dossier : dossiers) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
-            addTexte(dossier.representation.spectacle.nom + " a " + dateFormat.format(dossier.representation.date) + "H");
-            addBouton("Voir le recut", () -> ControleurReservationsAchats.getInstance().voirRecut(dossier));
+            addTexte(dossier.representation.spectacle.nom + " à " + dateFormat.format(dossier.representation.date) + "H");
+            addBouton("Voir le reçut", () -> ControleurReservationsAchats.getInstance().voirRecut(dossier));
             newLigne();
         }
     }

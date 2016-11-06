@@ -11,24 +11,25 @@ import modele.Reservation;
 
 @SuppressWarnings("serial")
 public class VuePreAchat extends AbstractVuePrincipale {
-    public VuePreAchat(Representation representation, ArrayList<Place> places, Reservation reservation){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy Ã  HH");
-        addTexte("Achat pour le spectacle "+representation.spectacle.nom+ " nÂ°"+representation.spectacle.numero+" du "+dateFormat.format(representation.date));
+    public VuePreAchat(Representation representation, ArrayList<Place> places, Reservation reservation) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
+        addTexte("Achat pour le spectacle " + representation.spectacle.nom + " n°" + representation.spectacle.numero + " du "
+                + dateFormat.format(representation.date) + "H");
         newLigne();
-        addTexte("Place souhaitÃ©e : ");
+        addTexte("Places souhaitées : ");
         newLigne();
         float somme = 0;
-        for (Place p : places){
+        for (Place p : places) {
             addTexte("");
-            addTexte("Place de la zone "+p.zone.numero+", rang "+p.rang+", numero "+p.numero+", au tarif : "+p.zone.categorie.tarif+"â‚¬");
+            addTexte("Place de la zone " + p.zone.numero + ", rang " + p.rang + ", numéro " + p.numero + ", au tarif : " + p.zone.categorie.tarif + "€");
             newLigne();
             somme += p.zone.categorie.tarif;
         }
-        addTexte("Prix total : "+somme+"â‚¬");
+        addTexte("Prix total : " + somme + "€");
         newLigne();
         newLigne();
         addBouton("Payer", () -> {
-            if (reservation==null){
+            if (reservation == null) {
                 ControleurReservationsAchats.getInstance().achatDirect(representation, places);
             } else {
                 ControleurReservationsAchats.getInstance().achatReservation(reservation);

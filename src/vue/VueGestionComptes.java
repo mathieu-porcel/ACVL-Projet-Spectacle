@@ -1,15 +1,15 @@
 package vue;
 
-import controleur.ControleurCompte;
 import java.util.List;
 
+import controleur.ControleurCompte;
 import modele.Compte;
 
 @SuppressWarnings("serial")
 public class VueGestionComptes extends AbstractVuePrincipale {
     public VueGestionComptes(List<Compte> comptes) {
-        addTitre("Ajouter un responsable:");
-        addBouton("Creer", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
+        addTitre("Ajouter un responsable : ");
+        addBouton("Créer", () -> InterfaceGraphique.getInstance().setVuePrincipale(new VueInscription()));
         newLigne();
 
         addTitre("Liste des comptes:");

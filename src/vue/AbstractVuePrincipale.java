@@ -90,7 +90,7 @@ public abstract class AbstractVuePrincipale extends JPanel {
                 new String[] { "Janvier", "Fï¿½vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" });
         panel.add(mois);
 
-        // Annees
+        // Années
         String[] annes = new String[10];
         for (int i = 0; i < annes.length; i++) {
             annes[i] = (Calendar.getInstance().get(Calendar.YEAR) + i) + "";

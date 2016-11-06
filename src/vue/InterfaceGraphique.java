@@ -37,7 +37,7 @@ public class InterfaceGraphique extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        // Sauvegarde du modï¿½le ï¿½ la fermeture de l'application
+        // Sauvegarde du modèle à la fermeture de l'application
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -57,7 +57,7 @@ public class InterfaceGraphique extends JFrame {
     }
 
     /**
-     * Met ï¿½ jour la fenï¿½tre en y ajoutant toutes les vues en cours
+     * Met à jour la fenêtre en y ajoutant toutes les vues en cours
      */
     private void updateVue() {
         JPanel panel = new JPanel();

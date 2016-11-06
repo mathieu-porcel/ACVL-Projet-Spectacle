@@ -10,24 +10,24 @@ import modele.Zone;
 @SuppressWarnings("serial")
 public class VueEditSalle extends AbstractVuePrincipale {
     public VueEditSalle(Collection<Zone> zones, Collection<Categorie> categories) {
-        addTitre("Nouvelle zone:");
+        addTitre("Nouvelle zone : ");
         addTexte("Categorie");
         Supplier<?> categorie = addListe(categories);
-        addBouton("Creer", () -> ControleurSalle.getInstance().addZone((Categorie) categorie.get()));
+        addBouton("Créer", () -> ControleurSalle.getInstance().addZone((Categorie) categorie.get()));
         newLigne();
 
-        addTitre("Liste des zones:");
+        addTitre("Liste des zones : ");
         newLigne();
         for (Zone zone : zones) {
             addTexte("");
-            addTexte("Zone nï¿½" + (zone.numero + 1) + ":");
+            addTexte("Zone n°" + (zone.numero + 1) + " : ");
             addTexte(zone.categorie.nom);
             newLigne();
             for (int i = 0; i < zone.places.size(); i++) {
                 int rang = i;
                 addTexte("");
                 addTexte("");
-                addTexte("Rang nï¿½" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
+                addTexte("Rang n°" + (rang + 1) + " (" + zone.places.get(rang).size() + " places)");
                 addBouton("Ajouter place", () -> ControleurSalle.getInstance().addNumero(zone, rang));
                 newLigne();
             }

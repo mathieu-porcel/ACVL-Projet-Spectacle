@@ -1,4 +1,3 @@
-
 package vue;
 
 import java.util.ArrayList;
@@ -47,5 +46,4 @@ public class VueChoixPlaces extends AbstractVuePrincipale {
             }
         });
     }
-
 }

@@ -10,7 +10,7 @@ import modele.Categorie;
 public class VueEditTarifs extends AbstractVuePrincipale {
 
     public VueEditTarifs(Collection<Categorie> categories) {
-        addTitre("Nouvelle categorie:");
+        addTitre("Nouvelle catégorie : ");
         newLigne();
         addTexte("");
         addTexte("Nom");
@@ -22,16 +22,16 @@ public class VueEditTarifs extends AbstractVuePrincipale {
         newLigne();
         addTexte("");
         addTexte("");
-        addBouton("Creer", () -> ControleurSalle.getInstance().addCategorie(nom.get(), tarif.get()));
+        addBouton("Créer", () -> ControleurSalle.getInstance().addCategorie(nom.get(), tarif.get()));
         newLigne();
 
-        addTitre("Liste des categories:");
+        addTitre("Liste des catégories : ");
         newLigne();
 
         for (Categorie categorie : categories) {
             addTexte("");
             addTexte(categorie.nom);
-            addTexte("(" + categorie.tarif + "ï¿½)");
+            addTexte("(" + categorie.tarif + "€)");
             newLigne();
         }
     }

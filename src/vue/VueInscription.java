@@ -15,7 +15,7 @@ public class VueInscription extends AbstractVuePrincipale {
         Supplier<String> nom = addChampTexte();
         newLigne();
 
-        addTexte("Prenom");
+        addTexte("Prénom");
         Supplier<String> prenom = addChampTexte();
         newLigne();
 

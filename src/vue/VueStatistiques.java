@@ -6,7 +6,7 @@ import modele.Spectacle;
 @SuppressWarnings("serial")
 public class VueStatistiques extends AbstractVuePrincipale {
     public VueStatistiques(Modele modele) {
-        addTexte("Nombre de spectacle creer: ");
+        addTexte("Nombre de spectacle créer: ");
         addTexte(String.valueOf(modele.spectacles.size()));
         newLigne();
         addTitre("Liste des spectacles");

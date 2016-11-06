@@ -33,7 +33,7 @@ public abstract class AbstractVueActions extends JPanel {
     }
 
     /**
-     * Ajoute un bouton a la barre d'action
+     * Ajoute un bouton à la barre d'action
      */
     protected void addAction(String text, Runnable action) {
         JButton button = new JButton(text);

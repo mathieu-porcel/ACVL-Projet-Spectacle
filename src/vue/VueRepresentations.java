@@ -22,7 +22,7 @@ public class VueRepresentations extends AbstractVuePrincipale {
                     addTexte(dateFormat.format(representation.date) + "H");
                     addBouton("Acheter", () -> ControleurReservationsAchats.getInstance().choixPlaces(representation, true));
                     if (!representation.isEndReservation()){
-                        addBouton("Reserver", () -> ControleurReservationsAchats.getInstance().choixPlaces(representation, false));
+                        addBouton("Réserver", () -> ControleurReservationsAchats.getInstance().choixPlaces(representation, false));
                     }
                     newLigne();
                 }
