@@ -1,6 +1,4 @@
-
 package modele;
 
-public class ReservationImpossible extends Exception{
-    
-}
+@SuppressWarnings("serial")
+public class ReservationImpossible extends Exception {}

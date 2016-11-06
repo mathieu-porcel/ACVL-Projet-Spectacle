@@ -1,10 +1,10 @@
 
 package vue;
 
-import controleur.Controleur;
-import controleur.ControleurReservationsAchats;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import controleur.ControleurReservationsAchats;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;

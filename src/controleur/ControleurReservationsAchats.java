@@ -108,6 +108,7 @@ public class ControleurReservationsAchats {
 
     public void achatReservation(Reservation reservation) {
         if (controleur.verifieTypeCompte(TypeCompte.Client) && controleur.verifieNotNull(reservation) && reservation.compte == controleur.currentUser && new Date().getTime() <= reservation.representation.date.getTime() && reservation.representation.getReservations().contains(reservation)) {
+            @SuppressWarnings("unchecked")
             ArrayList<Place> places = (ArrayList<Place>) reservation.places.clone();
             Representation representation = reservation.representation;
             reservation.libereAll();

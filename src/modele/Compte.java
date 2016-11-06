@@ -1,4 +1,3 @@
-
 package modele;
 
 import java.io.Serializable;
@@ -25,8 +24,8 @@ public class Compte implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         
-        reservations = new ArrayList();
-        achats = new ArrayList();
+        reservations = new ArrayList<>();
+        achats = new ArrayList<>();
     }
     
     public ArrayList<Reservation> getReservations(){

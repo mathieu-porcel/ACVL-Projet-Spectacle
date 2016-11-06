@@ -1,4 +1,3 @@
-
 package modele;
 
 import java.io.Serializable;
@@ -61,7 +60,7 @@ public class Representation implements Serializable {
     }
     
     public ArrayList<Place> getPlacesReserver(){
-        ArrayList<Place> ret = new ArrayList();
+        ArrayList<Place> ret = new ArrayList<>();
         for (Reservation r : getReservations()){
             ret.addAll(r.places);
         }
@@ -69,7 +68,7 @@ public class Representation implements Serializable {
     }
     
     public ArrayList<Place> getPlacesAcheter(){
-        ArrayList<Place> ret = new ArrayList();
+        ArrayList<Place> ret = new ArrayList<>();
         for (Dossier d : dossiers){
             ret.addAll(d.getPlaces());
         }

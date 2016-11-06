@@ -1,14 +1,14 @@
 
 package vue;
 
-import controleur.Controleur;
-import controleur.ControleurReservationsAchats;
 import java.text.SimpleDateFormat;
+
+import controleur.ControleurReservationsAchats;
 import modele.AchatPlace;
 import modele.Dossier;
 
+@SuppressWarnings("serial")
 public class VueRecutAchat extends AbstractVuePrincipale {
-
     public VueRecutAchat(Dossier dossier) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy à HH");
         addTexte("Recut pour le spectacle "+dossier.representation.spectacle.nom+ " n°"+dossier.representation.spectacle.numero+" du "+dateFormat.format(dossier.representation.date));
@@ -28,7 +28,5 @@ public class VueRecutAchat extends AbstractVuePrincipale {
         addTexte("Payée le "+dateFormat.format(dossier.places.get(0).date)+" par "+dossier.compte.nom+" "+dossier.compte.prenom);
         newLigne();
         addBouton("OK", () -> ControleurReservationsAchats.getInstance().listeAchats());
-        
     }
-        
 }

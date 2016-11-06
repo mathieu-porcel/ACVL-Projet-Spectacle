@@ -2,7 +2,6 @@ package vue;
 
 import java.util.function.Supplier;
 
-import controleur.Controleur;
 import controleur.ControleurCompte;
 
 @SuppressWarnings("serial")
