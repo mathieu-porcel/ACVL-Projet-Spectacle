@@ -127,14 +127,14 @@ public abstract class AbstractVuePrincipale extends JPanel {
         addComposantGraphique(champ);
         return () -> new String(champ.getPassword());
     }
-    
-    protected Supplier<Boolean> addCheckbox(){
+
+    protected Supplier<Boolean> addCheckbox() {
         JCheckBox checkbox = new JCheckBox();
         addComposantGraphique(checkbox);
         return () -> checkbox.isSelected();
     }
-    
-    protected void addCheckboxLock(){
+
+    protected void addCheckboxLock() {
         JCheckBox checkbox = new JCheckBox();
         addComposantGraphique(checkbox);
         checkbox.setEnabled(false);

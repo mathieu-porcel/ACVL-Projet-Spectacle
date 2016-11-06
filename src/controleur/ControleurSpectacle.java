@@ -60,7 +60,6 @@ public class ControleurSpectacle {
         if (controleur.verifieTypeCompte(TypeCompte.Responsable) && controleur.verifieNotNull(spectacle, date)) {
             Date d = controleur.stringToDateWithHour(date);
             if (d != null /* && new Date().getTime()<=d.getTime() */ ) {
-                // TODO comment for test/dev. Uncommetn for prod
                 spectacle.addRepresentation(d, controleur.modele.salle);
                 gestionSpectacles();
             }
