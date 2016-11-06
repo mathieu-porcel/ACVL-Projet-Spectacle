@@ -37,7 +37,7 @@ public class VueGestionSpecacles extends AbstractVuePrincipale {
                 addTexte("");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH");
                 addTexte("Représentation à " + (representation.isAnnuler ? "(annulée) " : "") + dateFormat.format(representation.date) + "H");
-                addTexte(representation.getPlacesReserver().size() + " places reservées et " + representation.getPlacesAchetees().size() + " achetées");
+                addTexte(representation.getPlacesReservees().size() + " places reservées et " + representation.getPlacesAchetees().size() + " achetées");
                 if (new Date().getTime() <= representation.date.getTime() && !representation.isAnnuler) {
                     addBouton("Annuler", () -> ControleurSpectacle.getInstance().annulerRepresentation(representation));
                 }

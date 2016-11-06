@@ -67,7 +67,7 @@ public class Representation implements Serializable {
         return reservations;
     }
 
-    public ArrayList<Place> getPlacesReserver() {
+    public ArrayList<Place> getPlacesReservees() {
         ArrayList<Place> ret = new ArrayList<>();
         for (Reservation r : getReservations()) {
             ret.addAll(r.places);
@@ -86,5 +86,4 @@ public class Representation implements Serializable {
     public void annuler() {
         isAnnuler = true;
     }
-
 }
