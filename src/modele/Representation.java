@@ -13,7 +13,7 @@ public class Representation implements Serializable {
     private ArrayList<Reservation> reservations;
     public ArrayList<Dossier> dossiers;
     public Spectacle spectacle;
-    
+
     public boolean isAnnuler;
 
     public Representation(Date date, Spectacle spectacle, Salle salle) {
@@ -26,7 +26,7 @@ public class Representation implements Serializable {
     }
 
     public boolean reserve(Reservation reservation) {
-        if (!isEndReservation() && !isAnnuler){
+        if (!isEndReservation() && !isAnnuler) {
             getReservations().add(reservation);
             return true;
         } else {
@@ -41,41 +41,49 @@ public class Representation implements Serializable {
     public void achat(Dossier dossier) {
         dossiers.add(dossier);
     }
-    
-    public boolean isEndReservation(){
+
+    public float getBenefices() {
+        float total = 0;
+        for (Dossier dossier : dossiers) {
+            total += dossier.getPrix();
+        }
+        return total;
+    }
+
+    public boolean isEndReservation() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.HOUR_OF_DAY, 1);
         return cal.getTime().getTime() >= date.getTime();
     }
-    
-    public ArrayList<Reservation> getReservations(){
-        if (isEndReservation() && !reservations.isEmpty()){
-            for (Reservation r : reservations){
+
+    public ArrayList<Reservation> getReservations() {
+        if (isEndReservation() && !reservations.isEmpty()) {
+            for (Reservation r : reservations) {
                 r.libereAll();
             }
             reservations.clear();
         }
         return reservations;
     }
-    
-    public ArrayList<Place> getPlacesReserver(){
+
+    public ArrayList<Place> getPlacesReserver() {
         ArrayList<Place> ret = new ArrayList<>();
-        for (Reservation r : getReservations()){
+        for (Reservation r : getReservations()) {
             ret.addAll(r.places);
         }
         return ret;
     }
-    
-    public ArrayList<Place> getPlacesAcheter(){
+
+    public ArrayList<Place> getPlacesAchetees() {
         ArrayList<Place> ret = new ArrayList<>();
-        for (Dossier d : dossiers){
+        for (Dossier d : dossiers) {
             ret.addAll(d.getPlaces());
         }
         return ret;
     }
-    
-    public void annuler(){
+
+    public void annuler() {
         isAnnuler = true;
     }
 

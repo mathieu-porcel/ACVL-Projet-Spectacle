@@ -14,7 +14,7 @@ public class VueChoixPlaces extends AbstractVuePrincipale {
         ArrayList<Supplier<Boolean>> checkboxs = new ArrayList<>();
         ArrayList<Place> places = new ArrayList<>();
         for (Zone zone : representation.salle.zones.values()) {
-            addTexte(zone.categorie.nom + " (" + zone.categorie.tarif + ") :");
+            addTexte(zone.categorie.nom + " (" + zone.categorie.tarif + "€) :");
             newLigne();
             for (ArrayList<Place> p1 : zone.places) {
                 addTexte("");

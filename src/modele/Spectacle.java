@@ -7,7 +7,7 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Spectacle implements Serializable {
-    
+
     public int numero;
     public String nom;
 
@@ -18,8 +18,24 @@ public class Spectacle implements Serializable {
         this.nom = nom;
         this.representations = new ArrayList<>();
     }
-    
-    public void addRepresentation(Date date, Salle salle){
+
+    public void addRepresentation(Date date, Salle salle) {
         representations.add(new Representation(date, this, salle));
+    }
+
+    public int getPlacesAchetees() {
+        int nb = 0;
+        for (Representation representation : representations) {
+            nb += representation.getPlacesAchetees().size();
+        }
+        return nb;
+    }
+
+    public float getBenefices() {
+        float total = 0;
+        for (Representation representation : representations) {
+            total += representation.getBenefices();
+        }
+        return total;
     }
 }
